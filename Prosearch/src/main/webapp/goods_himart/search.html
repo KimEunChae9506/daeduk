@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=2.0, minimum-scale=1.0, user-scalable=yes" />
+    <meta name="keywords" content="연천군청" />
+    <meta name="description" content="연천군청" />
+    <link rel="stylesheet" type="text/css" href="css/font.css" />
+    <!--[if lt IE 9]><link rel="stylesheet" type="text/css" href="css/font_ie8.css" /><![endif]-->
+    <link rel="stylesheet" type="text/css" href="css/neoKeyboard_style.css">
+    <link rel="stylesheet" type="text/css" href="css/sub.css" />
+    <!--[if lt IE 9]><script src="js/html5.js"></script><![endif]-->
+    <script src="js/jquery-1.12.4.HS-20200709.min.js"></script>
+    <script src="js/jquery.responsive.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/NeoVirtualKeyboard.min.js"></script>
+    <script src="js/program.min.js"></script>
+    <script src="js/common.js"></script>
+    <script src="./js/sub.js"></script>
+    <title>연천군청 통합검색</title>
+</head>
+
+<body id="sub" class="sub">
+<div class="accessibility">
+    <a href="#contents">본문 바로가기</a>
+</div>
+<div id="wrapper">
+    <div class="popup_covid19">
+        <div class="wrap">
+            <img src="/search/images/main/covid19_text.png" alt="코로나바이러스감염증-19 국내 감염자 추가발생에 대비하고 지역사회 확산을 예방하기 위해서 국민여러분의 동참이 필요합니다.">
+            <button type="button" class="covid_close">코로나 바이러스감염증-19 팝업창 닫기</button>
+        </div>
+    </div>
+    <header id="header">
+        <div class="header_top">
+            <div class="wrap">
+                <div class="gnb clearfix">
+                    <div class="site_link">
+                        <ul class="clearfix">
+                            <li class="active"><a href="" target="_blank" title="새창" rel="noopener noreferrer">연천군청</a></li>
+                            <li><a href="" target="_blank" title="새창" rel="noopener noreferrer">군의회</a></li>
+                            <li><a href="" target="_blank" title="새창" rel="noopener noreferrer">구석기축제</a></li>
+                            <li><a href="" target="_blank" title="새창" rel="noopener noreferrer">문화관광</a></li>
+                            <li><a href="" target="_blank" title="새창" rel="noopener noreferrer">통합예약</a></li>
+                        </ul>
+                    </div>
+                    <ul class="clearfix">
+                        <li class="list login"><a href="" class="tit">본인인증</a></li>
+                        <li class="list sitemap"><a href="" class="tit">전체메뉴</a></li>
+                        <li class="list language">
+                            <button type="button" class="language_btn tit active" title="언어선택 열기">KOR</button>
+                            <div class="layer">
+                                <button type="button" class="lang_close" title="언어선택 닫기">KOR</button><!-- 현재 언어 -->
+                                <ul>
+                                    <li><a href="" target="_blank" title="새창" class="text">ENG</a></li>
+                                    <li><a href="" target="_blank" title="새창" class="text">CHI</a></li>
+                                    <li><a href="" target="_blank" title="새창" class="text">JAP</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="list top_popup">
+                            <button type="button" class="btn_top_popup" title="코로나 바이러스감염증-19 팝업"><span>팝업닫기</span></button>
+                        </li>
+                        <li class="list service"><button type="button" class="big service_button tit"><span>맞춤복지서비스</span></button></li>
+                        <li class="list home"><button type="button" class="big family_button tit"><span>연천 패밀리 홈</span></button></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="header_box">
+            <div class="wrap">
+                <h1 class="logo">
+                    <a href="">
+                        <span class="ir">좋은사람들의 평화도시 Hi연천</span>
+                        <span class="department">통합검색</span>
+                    </a>
+                </h1>   <!--//logo-->
+                <section class="searchbox">
+                    <form action=""><!--action 항목이 비어있지 않도록 개발요망!!-->
+                        <fieldset>
+                            <legend>통합검색</legend>
+                            <div class="search clearfix">
+                                <h2 class="skip">통합검색</h2>
+                                <div class="search_wrap">
+                                    <div class="search_inner">
+                                        <label for="total_search" class="skip">검색어 입력</label>
+                                        <input type="search" name="total_search" id="total_search" class="total_search" placeholder="연천군" />
+                                        <div class="input_box">
+                                            <input type="submit" value="검색" class="search_submit" />
+                                        </div>  <!--//input_box-->
+                                        <button type="button" id="openNVK_sj" class="keyboard">가상키보드</button>
+                                    </div>  <!--//search_inner-->
+                                </div>  <!--//search_wrap-->
+
+                                <div class="popular_keyword clearfix">
+                                    <h3 class="title">인기검색어</h3>
+                                    <div class="list clearfix">
+                                        <div class="slide"><a href="">#청년정책</a></div>
+                                        <div class="slide"><a href="">#여권발급</a></div>
+                                        <div class="slide"><a href="">#민원실안내</a></div>
+                                        <div class="slide"><a href="">#복지</a></div>
+                                        <div class="slide"><a href="">#e-book</a></div>
+                                    </div>
+                                </div>  <!--//popular_keyword-->
+
+                                <button type="button" class="detail_search">상세검색</button>
+                                <div class="research">
+									<span class="temp_checkbox">
+										<input type="checkbox" id="bbb" />
+									    <label for="bbb">결과내 재검색</label>
+									</span> <!--//temp_checkbox-->
+                                </div>
+                            </div>
+                            <div class="detailbox">
+                                <div class="innerbox">
+                                    <ul>
+                                        <li class="list list01 period">
+                                            <span class="icon">검색기간</span>
+                                            <div class="listbox clearfix">
+                                                <div class="itembox item01">
+													<span class="sd_input">
+														<input type="checkbox" id="check_001" />
+														<label for="check_001">전체기간</label>
+													</span>
+                                                </div>
+                                                <div class="itembox item02">
+                                                    <div class="p-date-group textbox">
+                                                        <div class="p-form-group p-date" data-date="datepicker">
+                                                            <input type="text" title="검색기간 시작일" class="p-input period_start" placeholder="yyyy-mm-dd" />
+                                                            <div class="p-input__split">
+                                                                <button type="button" class="p-input__item p-date__icon">달력 열기</button>
+                                                            </div>
+                                                        </div>
+                                                        <span class="p-form__split">~</span>
+                                                        <div class="p-form-group p-date"  data-date="datepicker">
+                                                            <input type="text" title="검색기간 종료일" class="p-input period_end" placeholder="yyyy-mm-dd" />
+                                                            <div class="p-input__split">
+                                                                <button type="button" class="p-input__item p-date__icon">달력 열기</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div><!--//.itembox-->
+                                                <div class="itembox item03">
+                                                    <button type="button" class="period_btn" data-period="w">1주</button>
+                                                    <button type="button" class="period_btn" data-period="m">1개월</button>
+                                                    <button type="button" class="period_btn" data-period="y">1년</button>
+                                                </div><!--//.itembox-->
+                                            </div>
+                                        </li>
+                                        <li class="list list02">
+                                            <span class="icon">검색방법</span>
+                                            <div class="listbox clearfix">
+                                                <div class="itembox item01">
+													<span class="sd_input">
+														<input type="radio" id="check_002" name="radio" />
+														<label for="check_002">하나라도 포함된 결과(OR)</label>
+													</span>
+                                                </div>
+                                                <div class="itembox item02">
+													<span class="sd_input">
+														<input type="radio" id="check_003" name="radio" />
+														<label for="check_003">제외하는 단어</label>
+													</span>
+                                                    <span class="textbox">
+														<label for="" class="skip">제외하는 단어</label>
+														<input type="text" id="" class="p-input" />
+													</span>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="list list03">
+                                            <span class="icon">검색범위</span>
+                                            <div class="listbox">
+                                                <div class="itembox range item01">
+													<span class="sd_input">
+														<input type="checkbox" data-all="y" id="check_004" />
+														<label for="check_004">전체</label>
+													</span>
+                                                    <span class="sd_input">
+														<input type="checkbox" id="check_005" />
+														<label for="check_005">제목</label>
+													</span>
+                                                    <span class="sd_input">
+														<input type="checkbox" id="check_006" />
+														<label for="check_006">내용</label>
+													</span>
+                                                    <span class="sd_input">
+														<input type="checkbox" id="check_007" />
+														<label for="check_007">파일명</label>
+													</span>
+                                                    <span class="sd_input">
+														<input type="checkbox" id="check_008" />
+														<label for="check_008">파일내용</label>
+													</span>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <button type="button" class="detail_close">닫기</button>
+                            </div>
+                        </fieldset>
+                    </form>
+                </section><!--//search-->
+                <div class="lnb">
+                    <nav class="menu">
+                        <h2 class="skip">주메뉴</h2>
+                        <div class="depth depth1">
+                            <ul class="depth_list depth1_list clearfix">
+                                <li class="depth_item depth1_item active"><a href="" class="depth_text depth1_text">통합검색</a></li>
+                                <li class="depth_item depth1_item"><a href="" class="depth_text depth1_text">메뉴검색</a></li>
+                                <li class="depth_item depth1_item"><a href="" class="depth_text depth1_text">직원 및 담당업무</a></li>
+                                <li class="depth_item depth1_item"><a href="" class="depth_text depth1_text">연천소식</a></li>
+                                <li class="depth_item depth1_item"><a href="" class="depth_text depth1_text">민원서식</a></li>
+                                <li class="depth_item depth1_item"><a href="" class="depth_text depth1_text">웹페이지</a></li>
+                                <li class="depth_item depth1_item"><a href="" class="depth_text depth1_text">게시판</a></li>
+                                <li class="depth_item depth1_item"><a href="" class="depth_text depth1_text">멀티미디어</a></li>
+                                <li class="depth_item depth1_item"><a href="" class="depth_text depth1_text">첨부파일</a></li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div><!--//wrap-->
+        </div>
+    </header>
+    <div id="container">
+        <div class="wrap clearfix">
+            <main class="colgroup">
+                <article>
+                    <header class="sub_head">
+                        <div class="sub_title">
+                            <h2>검색어 <strong>“연천군”</strong>에 대한 전체 <mark>“30,251”</mark>개의 결과를 찾았습니다.</h2>
+                        </div>
+                    </header>
+                    <div id="contents">
+                        <section class="result">
+                            <h3>연천군1번가</h3>
+                            <div class="bannerbox">
+                                <div class="conbox clearfix">
+                                    <div class="left_box">
+                                        <div class="p_box">
+                                            <div class="p_wrap" style="background-image:url('/search/images/contents/banner_img.jpg');"></div>  <!--//p_wrap-->
+                                            <div class="p_img">
+                                                <img src="/search/images/contents/banner_img.jpg" alt="해당 이미지의 설명">
+                                            </div>  <!--//p_img-->
+                                        </div>  <!--//p_box-->
+                                    </div>  <!--//left_box-->
+                                    <div class="right_box">
+                                        <h4 class="title">소통공감 플랫폼 <span class="point">“연천군1번家”</span></h4>
+                                        <ul class="bu">
+                                            <li><span class="green">연천군신문고</span> : 1,000명 이상 공감한 청원은 구청장이 직접 답변을 드립니다.</li>
+                                            <li><span class="green">탁트인소통실</span> : 구청장에게 하고 싶은 말씀을 들려주세요.</li>
+                                            <li><span class="green">찬반투표</span> : 영등포구에서 추진하는 각종 정책의 찬반 의견을 듣고있습니다.</li>
+                                            <li><span class="green">홈페이지</span> : <a href="/www/index.do" target="_blank" title="새창" class="banner_link">https://www.yeoncheon.go.kr/index.do</a></li>
+                                        </ul>
+                                    </div>  <!--//right_box-->
+                                </div>  <!--//conbox-->
+                            </div>  <!--//bannerbox-->
+                        </section>  <!--//result--><!--//테마 검색 출력-->
+                        <section class="result menu_result">
+                            <h3>메뉴검색 (총<mark class="em_red">12</mark>건)</h3>
+                            <ul class="bu">
+                                <li>
+                                    <a href="" title="새창" target="_blank">
+                                        <span class="site">[연천군청]</span>
+                                        <span class="path_text">민원안내&gt;민원서식&gt;민원사무편람</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="" title="새창" target="_blank">
+                                        <span class="site">[연천군보건소]</span>
+                                        <span class="path_text">진료민원상담&gt;민원서식</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="" title="새창" target="_blank">
+                                        <span class="site">[연천군청]</span>
+                                        <span class="path_text">민원안내&gt;민원서식&gt;민원서식(민원24)</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="" title="새창" target="_blank">
+                                        <span class="site">[연천군청]</span>
+                                        <span class="path_text">민원신청&gt;전자민원창구&gt;민원신청</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="" title="새창" target="_blank">
+                                        <span class="site">[연천군청]</span>
+                                        <span class="path_text">민원신청&gt;전자민원창구&gt;민원신청</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <a href="" class="more">더보기</a>
+                        </section>  <!--//result--><!--//메뉴 검색 출력-->
+                        <section class="result staff">
+                            <h3>직원 및 담당업무 (총 <mark class="em_red">10</mark>건)</h3>
+                            <table class="table responsive">
+                                <caption>직원 및 담당업무 - 부서명, 성명/직위, 전화번호, 담당업무</caption>
+                                <colgroup>
+                                    <col style="width:25%;">
+                                    <col style="width:25%;">
+                                    <col style="width:25%;">
+                                    <col style="width:25%;">
+                                </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th scope="col">부서명</th>
+                                        <th scope="col">성명/직위</th>
+                                        <th scope="col">전화번호</th>
+                                        <th scope="col">담당업무</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>일자리경제과</td>
+                                        <td>
+                                            <strong>박문수</strong><br>
+                                            주무관
+                                        </td>
+                                        <td>031-839-0000</td>
+                                        <td class="text_left">
+                                            지식산업센터 설립 등록 공장등록<br>
+                                            <mark class="em_red">연천군</mark> 소상공인회 지원
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>종합민원과</td>
+                                        <td>
+                                            <strong>홍길동</strong><br>
+                                            주무관
+                                        </td>
+                                        <td>031-839-0000</td>
+                                        <td class="text_left">
+                                            가로정비 단속(C조)<br>
+                                            <mark class="em_red">연천군</mark> 전지역 가로정비 단속 및 순찰 등
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>종합민원과</td>
+                                        <td>
+                                            <strong>강감찬</strong><br>
+                                            주무관
+                                        </td>
+                                        <td>031-839-0000</td>
+                                        <td class="text_left">
+                                            가로정비 단속(B조)<br>
+                                            <mark class="em_red">연천군</mark> 전지역 가로정비 단속 및 순찰 등
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>종합민원과</td>
+                                        <td>
+                                            <strong>이순신</strong><br>
+                                            주무관
+                                        </td>
+                                        <td>031-839-0000</td>
+                                        <td class="text_left">
+                                            가로정비 단속<br>
+                                            <mark class="em_red">연천군</mark> 가로정비 단속 및 순찰 등<br>
+                                            행정차량(87소0687) 유지 관리
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>종합민원과</td>
+                                        <td>
+                                            <strong>김철수</strong><br>
+                                            주무관
+                                        </td>
+                                        <td>031-839-0000</td>
+                                        <td class="text_left">
+                                            가로정비 단속(B조)<br>
+                                            <mark class="em_red">연천군</mark> 가로정비 단속 및 순찰 등
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <a href="" class="more">더보기</a>
+                        </section>  <!--//result--><!--//직원 및 담당업무 검색 출력-->
+                        <section class="result">
+                            <h3>연천소식 (총<mark class="em_red">143</mark>건)</h3>
+                            <div class="resultbox">
+                                <div class="title">
+                                    <a href="">[<mark class="em_red">연천군</mark>소식] <mark class="em_red">연천군</mark> 마을자치센터 직원 채용공고</a>
+                                </div>  <!--//title-->
+                                <div class="text">
+                                    「사단법인 마을」은 연천군으로부터 연천군마을자치센터 수탁기관에 선정되었습니다. 주민주도와 민관협치로 마을공동체 활성화와 주민자치를 촉진하여 민주주의 발전에 기여하고 인간존중, 소통과
+                                    주민주도와 민관협치로 마을공동체 활성화와 주민자치를 촉진하여 민주주의 발전에 기여하고 인간존중, 소통과...
+                                </div>  <!--//text-->
+                                <div class="filebox">
+                                    <ul class="bu">
+                                        <li>
+                                            <div class="filetitle btn hwp">
+                                                <span class="text">[공고문] 연천군마을자치센터직원채용공고.hwp</span>
+                                            </div>
+                                            <div class="downbox">
+                                                <a href="" target="_blank" title="다운로드" class="down">해당파일 다운로드</a>
+                                                <a href="" target="_blank" title="새창" class="view">미리보기</a>
+                                            </div>  <!--//downbox-->
+                                        </li>
+                                        <li>
+                                            <div class="filetitle btn hwp">
+                                                <span class="text">[붙임] 응시원서 개인정보동의서[1].hwp</span>
+                                            </div>
+                                            <div class="downbox">
+                                                <a href="" target="_blank" title="다운로드" class="down">해당파일 다운로드</a>
+                                                <a href="" target="_blank" title="새창" class="view">미리보기</a>
+                                            </div>  <!--//downbox-->
+                                        </li>
+                                    </ul>
+                                </div>  <!--//filebox-->
+                                <div class="path"><span class="site">[연천군청]</span> 연천군소개&gt;구정소식&gt;연천소식</div>
+                            </div>  <!--//resultbox-->
+                            <a href="" class="more">더보기</a>
+                        </section>  <!--//result--><!--//연천소식 검색 출력-->
+                        <section class="result">
+                            <h3>민원서식 (총<mark class="em_red">26,882</mark>건)</h3>
+                            <div class="resultbox">
+                                <div class="title">
+                                    <a href="">통신판매업신고</a>
+                                </div>  <!--//title-->
+                                <div class="text">
+                                    통신판매업자의 신규 신고 서식
+                                </div>  <!--//text-->
+                                <div class="filebox">
+                                    <ul class="bu">
+                                        <li>
+                                            <div class="filetitle btn hwp">
+                                                <span class="text">구매안전서비스 비적용 대상 확인서.hwp</span>
+                                            </div>
+                                            <div class="downbox">
+                                                <a href="" target="_blank" title="다운로드" class="down">해당파일 다운로드</a>
+                                                <a href="" target="_blank" title="새창" class="view">미리보기</a>
+                                            </div>  <!--//downbox-->
+                                        </li>
+                                    </ul>
+                                </div>  <!--//filebox-->
+                            </div>  <!--//resultbox-->
+                            <a href="" class="more">더보기</a>
+                        </section>  <!--//result--><!--//민원서식 검색 출력-->
+                        <section class="result">
+                            <h3>웹페이지 (총<mark class="em_red">12</mark>건)</h3>
+                            <div class="resultbox">
+                                <div class="title">
+                                    <a href="">지역특성</a>
+                                </div>  <!--//title-->
+                                <div class="text">
+                                    경기도의 최북단에 위치하고 있으며, 동쪽은 연천읍과 청산면이 포천시와 접하고 있음. 서쪽은 장남면이 파주시와,북쪽은 신서면이 황해도의 금천로 및 강원도 철원군과 인접해 있으며 경기도의
+                                    최북단에 위치하고 있으며, 동쪽은 연천읍과 청산면이 포천시와 접하고 있음..
+                                </div>  <!--//text-->
+                                <div class="path"><span class="site">[영등포구청]</span> 연천군소개&gt;지역특성</div>
+                            </div>  <!--//resultbox-->
+                            <a href="" class="more">더보기</a>
+                        </section>  <!--//result--><!--//웹페이지 검색 출력-->
+                        <section class="result">
+                            <h3>게시판</h3>
+                            <div class="resultbox">
+                                <div class="title">
+                                    <a href="">[<mark class="em_red">연천군</mark>소식] <mark class="em_red">연천군</mark> 마을자치센터 직원 채용공고</a>
+                                </div>  <!--//title-->
+                                <div class="text">
+                                    「사단법인 마을」은 연천군으로부터 연천군마을자치센터 수탁기관에 선정되었습니다. 주민주도와 민관협치로 마을공동체 활성화와 주민자치를 촉진하여 민주주의 발전에 기여하고 인간존중, 소통과
+                                    주민주도와 민관협치로 마을공동체 활성화와 주민자치를 촉진하여 민주주의 발전에 기여하고 인간존중, 소통과...
+                                </div>  <!--//text-->
+                                <div class="filebox">
+                                    <ul class="bu">
+                                        <li>
+                                            <div class="filetitle btn hwp">
+                                                <span class="text">[공고문] 연천군마을자치센터직원채용공고[1].hwp</span>
+                                            </div>
+                                            <div class="downbox">
+                                                <a href="" target="_blank" title="다운로드" class="down">해당파일 다운로드</a>
+                                                <a href="" target="_blank" title="새창" class="view">미리보기</a>
+                                            </div>  <!--//downbox-->
+                                        </li>
+                                        <li>
+                                            <div class="filetitle btn hwp">
+                                                <span class="text">[붙임] 응시원서 개인정보동의서[1].hwp</span>
+                                            </div>
+                                            <div class="downbox">
+                                                <a href="" target="_blank" title="다운로드" class="down">해당파일 다운로드</a>
+                                                <a href="" target="_blank" title="새창" class="view">미리보기</a>
+                                            </div>  <!--//downbox-->
+                                        </li>
+                                    </ul>
+                                </div>  <!--//filebox-->
+                                <div class="path"><span class="site">[영등포구청]</span> 연천군소개&gt;구정소식&gt;연천군소식</div>
+                            </div>  <!--//resultbox-->
+                            <div class="resultbox">
+                                <div class="title">
+                                    <a href="">[<mark class="em_red">연천군</mark>소식] <mark class="em_red">연천군</mark> 마을자치센터 직원 채용공고</a>
+                                </div>  <!--//title-->
+                                <div class="text">
+                                    「사단법인 마을」은 연천군으로부터 연천군마을자치센터 수탁기관에 선정되었습니다. 주민주도와 민관협치로 마을공동체 활성화와 주민자치를 촉진하여 민주주의 발전에 기여하고 인간존중, 소통과
+                                    주민주도와 민관협치로 마을공동체 활성화와 주민자치를 촉진하여 민주주의 발전에 기여하고 인간존중, 소통과...
+                                </div>  <!--//text-->
+                                <div class="filebox">
+                                    <ul class="bu">
+                                        <li>
+                                            <div class="filetitle btn hwp">
+                                                <span class="text">[공고문] 연천군마을자치센터직원채용공고[1].hwp</span>
+                                            </div>
+                                            <div class="downbox">
+                                                <a href="" target="_blank" title="다운로드" class="down">해당파일 다운로드</a>
+                                                <a href="" target="_blank" title="새창" class="view">미리보기</a>
+                                            </div>  <!--//downbox-->
+                                        </li>
+                                        <li>
+                                            <div class="filetitle btn hwp">
+                                                <span class="text">[붙임] 응시원서 개인정보동의서[1].hwp</span>
+                                            </div>
+                                            <div class="downbox">
+                                                <a href="" target="_blank" title="다운로드" class="down">해당파일 다운로드</a>
+                                                <a href="" target="_blank" title="새창" class="view">미리보기</a>
+                                            </div>  <!--//downbox-->
+                                        </li>
+                                    </ul>
+                                </div>  <!--//filebox-->
+                                <div class="path"><span class="site">[영등포구청]</span> 연천군소개&gt;구정소식&gt;연천군소식</div>
+                            </div>  <!--//resultbox-->
+                            <a href="" class="more">더보기</a>
+                        </section>  <!--//result--><!--//게시판 검색 출력-->
+                        <section class="result multi">
+                            <h3>멀티미디어 (총 <mark class="em_red">12</mark>건)</h3>
+                            <div class="photo">
+                                <ul class="photo_list clearfix">
+                                    <li class="photo_item">
+                                        <a href="" class="photo_link">
+                                            <div class="wrap">
+                                                <div class="p_text">
+                                                    <div class="text_wrap">
+                                                        <span class="p_title">
+                                                            <mark class="em_red">연천군</mark><br>
+                                                            지역현환 현장 토론회의 개최
+                                                        </span> <!--//p_title-->
+                                                        <time datetime="2020-11-04">2020-11-04</time>
+                                                    </div>  <!--//text_wrap-->
+                                                </div>  <!--//p_text-->
+                                                <div class="p_box">
+                                                    <div class="p_wrap" style="background-image:url('/search/images/main/covid19_img.jpg')"></div>  <!--//p_wrap-->
+                                                    <div class="p_img">
+                                                        <img src="/search/images/main/covid19_img.jpg" alt="해당 이미지의 설명">
+                                                    </div>  <!--//p_img-->
+                                                </div>  <!--//p_box-->
+                                            </div>  <!--//wrap-->
+                                        </a>    <!--//photo_link-->
+                                    </li>   <!--//photo_item-->
+                                    <li class="photo_item">                 <!--//이미지 없을 때 코딩 이렇게 붙여주세요-->
+                                        <a href="" class="photo_link">
+                                            <div class="wrap">
+                                                <div class="p_text">
+                                                    <div class="text_wrap">
+                                                        <span class="p_title">
+                                                            이미지 없음
+                                                        </span> <!--//p_title-->
+                                                    </div>  <!--//text_wrap-->
+                                                </div>  <!--//p_text-->
+                                                <div class="p_box">
+                                                    <div class="p_wrap" style="background-image:url('/search/images/contents/noimage.jpg')"></div>  <!--//p_wrap-->
+                                                    <div class="p_img">
+                                                        <img src="/search/images/main/covid19_img.jpg" alt="해당 이미지의 설명">
+                                                    </div>  <!--//p_img-->
+                                                </div>  <!--//p_box-->
+                                            </div>  <!--//wrap-->
+                                        </a>    <!--//photo_link-->
+                                    </li>   <!--//photo_item-->
+                                    <li class="photo_item">
+                                        <a href="" class="photo_link">
+                                            <div class="wrap">
+                                                <div class="p_text">
+                                                    <div class="text_wrap">
+                                                        <span class="p_title">
+                                                            <mark class="em_red">연천군</mark><br>
+                                                            지역현환 현장 토론회의 개최
+                                                        </span> <!--//p_title-->
+                                                        <time datetime="2020-11-04">2020-11-04</time>
+                                                    </div>  <!--//text_wrap-->
+                                                </div>  <!--//p_text-->
+                                                <div class="p_box">
+                                                    <div class="p_wrap" style="background-image:url('/search/images/main/covid19_img.jpg')"></div>  <!--//p_wrap-->
+                                                    <div class="p_img">
+                                                        <img src="/search/images/main/covid19_img.jpg" alt="해당 이미지의 설명">
+                                                    </div>  <!--//p_img-->
+                                                </div>  <!--//p_box-->
+                                            </div>  <!--//wrap-->
+                                        </a>    <!--//photo_link-->
+                                    </li>   <!--//photo_item-->
+                                    <li class="photo_item">                 <!--//이미지 없을 때 코딩 이렇게 붙여주세요-->
+                                        <a href="" class="photo_link">
+                                            <div class="wrap">
+                                                <div class="p_text">
+                                                    <div class="text_wrap">
+                                                        <span class="p_title">
+                                                            이미지 없음
+                                                        </span> <!--//p_title-->
+                                                    </div>  <!--//text_wrap-->
+                                                </div>  <!--//p_text-->
+                                                <div class="p_box">
+                                                    <div class="p_wrap" style="background-image:url('/search/images/contents/noimage.jpg')"></div>  <!--//p_wrap-->
+                                                    <div class="p_img">
+                                                        <img src="/search/images/main/covid19_img.jpg" alt="해당 이미지의 설명">
+                                                    </div>  <!--//p_img-->
+                                                </div>  <!--//p_box-->
+                                            </div>  <!--//wrap-->
+                                        </a>    <!--//photo_link-->
+                                    </li>   <!--//photo_item-->
+                                    <li class="photo_item">
+                                        <a href="" class="photo_link">
+                                            <div class="wrap">
+                                                <div class="p_text">
+                                                    <div class="text_wrap">
+                                                        <span class="p_title">
+                                                            <mark class="em_red">연천군</mark><br>
+                                                            지역현환 현장 토론회의 개최
+                                                        </span> <!--//p_title-->
+                                                        <time datetime="2020-11-04">2020-11-04</time>
+                                                    </div>  <!--//text_wrap-->
+                                                </div>  <!--//p_text-->
+                                                <div class="p_box">
+                                                    <div class="p_wrap" style="background-image:url('/search/images/main/covid19_img.jpg')"></div>  <!--//p_wrap-->
+                                                    <div class="p_img">
+                                                        <img src="/search/images/main/covid19_img.jpg" alt="해당 이미지의 설명">
+                                                    </div>  <!--//p_img-->
+                                                </div>  <!--//p_box-->
+                                            </div>  <!--//wrap-->
+                                        </a>    <!--//photo_link-->
+                                    </li>   <!--//photo_item-->
+                                    <li class="photo_item">                 <!--//이미지 없을 때 코딩 이렇게 붙여주세요-->
+                                        <a href="" class="photo_link">
+                                            <div class="wrap">
+                                                <div class="p_text">
+                                                    <div class="text_wrap">
+                                                        <span class="p_title">
+                                                            이미지 없음
+                                                        </span> <!--//p_title-->
+                                                    </div>  <!--//text_wrap-->
+                                                </div>  <!--//p_text-->
+                                                <div class="p_box">
+                                                    <div class="p_wrap" style="background-image:url('/search/images/contents/noimage.jpg')"></div>  <!--//p_wrap-->
+                                                    <div class="p_img">
+                                                        <img src="/search/images/main/covid19_img.jpg" alt="해당 이미지의 설명">
+                                                    </div>  <!--//p_img-->
+                                                </div>  <!--//p_box-->
+                                            </div>  <!--//wrap-->
+                                        </a>    <!--//photo_link-->
+                                    </li>   <!--//photo_item-->
+                                    <li class="photo_item">
+                                        <a href="" class="photo_link">
+                                            <div class="wrap">
+                                                <div class="p_text">
+                                                    <div class="text_wrap">
+                                                        <span class="p_title">
+                                                            <mark class="em_red">연천군</mark><br>
+                                                            지역현환 현장 토론회의 개최
+                                                        </span> <!--//p_title-->
+                                                        <time datetime="2020-11-04">2020-11-04</time>
+                                                    </div>  <!--//text_wrap-->
+                                                </div>  <!--//p_text-->
+                                                <div class="p_box">
+                                                    <div class="p_wrap" style="background-image:url('/search/images/main/covid19_img.jpg')"></div>  <!--//p_wrap-->
+                                                    <div class="p_img">
+                                                        <img src="/search/images/main/covid19_img.jpg" alt="해당 이미지의 설명">
+                                                    </div>  <!--//p_img-->
+                                                </div>  <!--//p_box-->
+                                            </div>  <!--//wrap-->
+                                        </a>    <!--//photo_link-->
+                                    </li>   <!--//photo_item-->
+                                    <li class="photo_item">                 <!--//이미지 없을 때 코딩 이렇게 붙여주세요-->
+                                        <a href="" class="photo_link">
+                                            <div class="wrap">
+                                                <div class="p_text">
+                                                    <div class="text_wrap">
+                                                        <span class="p_title">
+                                                            이미지 없음
+                                                        </span> <!--//p_title-->
+                                                    </div>  <!--//text_wrap-->
+                                                </div>  <!--//p_text-->
+                                                <div class="p_box">
+                                                    <div class="p_wrap" style="background-image:url('/search/images/contents/noimage.jpg')"></div>  <!--//p_wrap-->
+                                                    <div class="p_img">
+                                                        <img src="/search/images/main/covid19_img.jpg" alt="해당 이미지의 설명">
+                                                    </div>  <!--//p_img-->
+                                                </div>  <!--//p_box-->
+                                            </div>  <!--//wrap-->
+                                        </a>    <!--//photo_link-->
+                                    </li>   <!--//photo_item-->
+                                </ul>   <!--//photo_list-->
+                            </div>  <!--//photo-->
+                            <a href="" class="more">더보기</a>
+                        </section>  <!--//result--><!--//멀티미디어 검색 출력-->
+                        <section class="result attach">
+                            <h3>첨부파일 (총 <mark class="em_red">12</mark>건)</h3>
+                            <div class="attach_box">
+                                <ul class="attach_list clearfix">
+                                    <li class="attach_item">
+                                        <div class="wrap">
+                                            <span class="btn icon hwp">한글파일</span>
+                                            <span class="attach_text">연사랑걷기대회개최계획(안).hwp</span>   <!--//attach_text-->
+                                            <div class="attach_down">
+                                                <a href="" class="btn type3 small preview_icon">미리보기</a>
+                                                <a href="" title="다운로드" class="btn type3 small down_icon">다운로드</a>
+                                            </div>  <!--//attach_down-->
+                                        </div>  <!--//wrap-->
+                                    </li>   <!--//attach_item-->
+                                    <li class="attach_item">
+                                        <div class="wrap">
+                                            <span class="btn icon pdf">PDF파일</span>
+                                            <span class="attach_text">연사랑걷기대회개최계획(안).pdf</span>   <!--//attach_text-->
+                                            <div class="attach_down">
+                                                <a href="" class="btn type3 small preview_icon">미리보기</a>
+                                                <a href="" title="다운로드" class="btn type3 small down_icon">다운로드</a>
+                                            </div>  <!--//attach_down-->
+                                        </div>  <!--//wrap-->
+                                    </li>   <!--//attach_item-->
+                                    <li class="attach_item">
+                                        <div class="wrap">
+                                            <span class="btn icon xls">엑셀파일</span>
+                                            <span class="attach_text">연사랑걷기대회개최계획(안).xls</span>   <!--//attach_text-->
+                                            <div class="attach_down">
+                                                <a href="" class="btn type3 small preview_icon">미리보기</a>
+                                                <a href="" title="다운로드" class="btn type3 small down_icon">다운로드</a>
+                                            </div>  <!--//attach_down-->
+                                        </div>  <!--//wrap-->
+                                    </li>   <!--//attach_item-->
+                                    <li class="attach_item">
+                                        <div class="wrap">
+                                            <span class="btn icon jpg">JPG파일</span>
+                                            <span class="attach_text">연사랑걷기대회개최계획(안).jpg</span>   <!--//attach_text-->
+                                            <div class="attach_down">
+                                                <a href="" class="btn type3 small preview_icon">미리보기</a>
+                                                <a href="" title="다운로드" class="btn type3 small down_icon">다운로드</a>
+                                            </div>  <!--//attach_down-->
+                                        </div>  <!--//wrap-->
+                                    </li>   <!--//attach_item-->
+                                    <li class="attach_item">
+                                        <div class="wrap">
+                                            <span class="btn icon zip">ZIP파일</span>
+                                            <span class="attach_text">연사랑걷기대회개최계획(안).zip</span>   <!--//attach_text-->
+                                            <div class="attach_down">
+                                                <a href="" class="btn type3 small preview_icon">미리보기</a>
+                                                <a href="" title="다운로드" class="btn type3 small down_icon">다운로드</a>
+                                            </div>  <!--//attach_down-->
+                                        </div>  <!--//wrap-->
+                                    </li>   <!--//attach_item-->
+                                    <li class="attach_item">
+                                        <div class="wrap">
+                                            <span class="btn icon ai">AI파일</span>
+                                            <span class="attach_text">연사랑걷기대회개최계획(안).ai</span>   <!--//attach_text-->
+                                            <div class="attach_down">
+                                                <a href="" class="btn type3 small preview_icon">미리보기</a>
+                                                <a href="" title="다운로드" class="btn type3 small down_icon">다운로드</a>
+                                            </div>  <!--//attach_down-->
+                                        </div>  <!--//wrap-->
+                                    </li>   <!--//attach_item-->
+                                    <li class="attach_item">
+                                        <div class="wrap">
+                                            <span class="btn icon hwp">한글파일</span>
+                                            <span class="attach_text">연사랑걷기대회개최계획(안).hwp</span>   <!--//attach_text-->
+                                            <div class="attach_down">
+                                                <a href="" class="btn type3 small preview_icon">미리보기</a>
+                                                <a href="" title="다운로드" class="btn type3 small down_icon">다운로드</a>
+                                            </div>  <!--//attach_down-->
+                                        </div>  <!--//wrap-->
+                                    </li>   <!--//attach_item-->
+                                    <li class="attach_item">
+                                        <div class="wrap">
+                                            <span class="btn icon hwp">한글파일</span>
+                                            <span class="attach_text">연사랑걷기대회개최계획(안).hwp</span>   <!--//attach_text-->
+                                            <div class="attach_down">
+                                                <a href="" class="btn type3 small preview_icon">미리보기</a>
+                                                <a href="" title="다운로드" class="btn type3 small down_icon">다운로드</a>
+                                            </div>  <!--//attach_down-->
+                                        </div>  <!--//wrap-->
+                                    </li>   <!--//attach_item-->
+                                </ul>   <!--//attach_list-->
+                            </div>  <!--//attach_box-->
+                            <a href="" class="more">더보기</a>
+                        </section>  <!--//result--><!--//첨부파일 검색 출력-->
+
+                        <div class="p-pagination">
+                            <div class="p-page">
+								<span class="p-page__control">
+									<a href="#" class="p-page__link prev-end"><span class="skip">처음 페이지</span></a>
+									<a href="#" class="p-page__link prev"><span class="skip">이전 10 페이지</span></a>
+									<a href="#" class="p-page__link prev-one">이전 페이지</a>
+								</span>
+                                <span class="p-page__link-group">
+									<strong title="현재 1페이지" class="p-page__link active">1</strong>
+									<a href="" title="2페이지 이동" class="p-page__link">2</a>
+									<a href="" title="3페이지 이동" class="p-page__link">3</a>
+									<a href="" title="4페이지 이동" class="p-page__link">4</a>
+									<a href="" title="5페이지 이동" class="p-page__link">5</a>
+									<a href="" title="6페이지 이동" class="p-page__link">6</a>
+									<a href="" title="7페이지 이동" class="p-page__link">7</a>
+									<a href="" title="8페이지 이동" class="p-page__link">8</a>
+									<a href="" title="9페이지 이동" class="p-page__link">9</a>
+									<a href="" title="10페이지 이동" class="p-page__link">10</a>
+								</span>
+                                <span class="p-page__control">
+									<a href="#" class="p-page__link next-one">다음 페이지</a>
+									<a href="#" class="p-page__link next"><span class="skip">다음 10 페이지</span></a>
+									<a href="#" class="p-page__link next-end"><span class="skip">끝 페이지</span></a>
+								</span>
+                            </div>
+                        </div>
+                    </div>  <!--//contents-->
+                </article>
+            </main>
+            <div class="side">
+                <div class="rank">
+                    <h2>인기검색어</h2>
+                    <div class="tab_menu">
+                        <div class="tab_nav">
+                            <a href="#day" class="active">일간</a>
+                            <a href="#week">주간</a>
+                        </div>
+                        <div class="tab_contents">
+                            <div id="day" class="tab_content active">
+                                <ol>
+                                    <li>
+                                        <a href="#n">실업급여</a>
+                                        <span class="rank_state"><span class="same">동일</span>0</span>
+                                    </li>
+                                    <li>
+                                        <a href="#n">내일배움카드</a>
+                                        <span class="rank_state"><span class="up">상승</span>4</span>
+                                    </li>
+                                    <li>
+                                        <a href="#n">고용보험</a>
+                                        <span class="rank_state"><span class="down">하락</span>1</span>
+                                    </li>
+                                    <li>
+                                        <a href="#n">근로기준법</a>
+                                        <span class="rank_state"><span class="new">NEW</span></span>
+                                    </li>
+                                    <li>
+                                        <a href="#n">요양원</a>
+                                        <span class="rank_state"><span class="same">동일</span>0</span>
+                                    </li>
+                                    <li>
+                                        <a href="#n">임금체불신고</a>
+                                        <span class="rank_state"><span class="same">동일</span>0</span>
+                                    </li>
+                                    <li>
+                                        <a href="#n">기준중위소득</a>
+                                        <span class="rank_state"><span class="same">동일</span>0</span>
+                                    </li>
+                                    <li>
+                                        <a href="#n">임금체불</a>
+                                        <span class="rank_state"><span class="same">동일</span>0</span>
+                                    </li>
+                                    <li>
+                                        <a href="#n">퇴직금</a>
+                                        <span class="rank_state"><span class="same">동일</span>0</span>
+                                    </li>
+                                    <li>
+                                        <a href="#n">임금</a>
+                                        <span class="rank_state"><span class="same">동일</span>0</span>
+                                    </li>
+                                </ol>
+                            </div>
+                            <div id="week" class="tab_content">
+                                <ol>
+                                    <li>
+                                        <a href="#n">어린이(2)</a>
+                                        <span class="rank_state"><span class="up">상승</span>4</span>
+                                    </li>
+                                    <li>
+                                        <a href="#n">어린이</a>
+                                        <span class="rank_state"><span class="down">하락</span>1</span>
+                                    </li>
+                                    <li>
+                                        <a href="#n">어린이</a>
+                                        <span class="rank_state"><span class="new">NEW</span></span>
+                                    </li>
+                                    <li>
+                                        <a href="#n">어린이</a>
+                                        <span class="rank_state"><span class="same">동일</span>0</span>
+                                    </li>
+                                    <li>
+                                        <a href="#n">어린이</a>
+                                        <span class="rank_state"><span class="same">동일</span>0</span>
+                                    </li>
+                                    <li>
+                                        <a href="#n">어린이</a>
+                                        <span class="rank_state"><span class="same">동일</span>0</span>
+                                    </li>
+                                    <li>
+                                        <a href="#n">어린이</a>
+                                        <span class="rank_state"><span class="same">동일</span>0</span>
+                                    </li>
+                                    <li>
+                                        <a href="#n">어린이</a>
+                                        <span class="rank_state"><span class="same">동일</span>0</span>
+                                    </li>
+                                    <li>
+                                        <a href="#n">어린이</a>
+                                        <span class="rank_state"><span class="same">동일</span>0</span>
+                                    </li>
+                                    <li>
+                                        <a href="#n">어린이</a>
+                                        <span class="rank_state"><span class="same">동일</span>0</span>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="my">
+                    <h2>내가찾은검색어</h2>
+                    <div class="my_content">
+                        <ul class="bu clearfix">
+                            <li>
+                                <a href="" class="my_query">민원서식</a>
+                                <button type="button" class="my_delete">삭제</button>
+                            </li>
+                            <li>
+                                <a href="" class="my_query">공개</a>
+                                <button type="button" class="my_delete">삭제</button>
+                            </li>
+                            <li>
+                                <a href="" class="my_query">정보공개</a>
+                                <button type="button" class="my_delete">삭제</button>
+                            </li>
+                            <li>
+                                <a href="" class="my_query">한국고용정보원</a>
+                                <button type="button" class="my_delete">삭제</button>
+                            </li>
+                            <li>
+                                <a href="" class="my_query">실업급여</a>
+                                <button type="button" class="my_delete">삭제</button>
+                            </li>
+                            <li>
+                                <a href="" class="my_query">수당</a>
+                                <button type="button" class="my_delete">삭제</button>
+                            </li>
+                            <li>
+                                <a href="" class="my_query">주휴수당</a>
+                                <button type="button" class="my_delete">삭제</button>
+                            </li>
+                            <li>
+                                <a href="" class="my_query">고용</a>
+                                <button type="button" class="my_delete">삭제</button>
+                            </li>
+                            <li>
+                                <a href="" class="my_query">임금</a>
+                                <button type="button" class="my_delete">삭제</button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- //#container -->
+    <footer id="footer">
+        <div class="wrap">
+            <div class="footer_info">
+                <address class="address">
+                    <span>[11017] 경기도 연천군 연천읍 연천로 220</span>
+                    <span class="blue">대표전화 : (031) 839-2114(교환)</span>
+                </address>  <!--//address-->
+                <p class="copyright">Copyright ⓒ 2020 <span class="copy_point">YEONCHEON-GUN.</span> ALL RIGHTS RESERVED</p>
+            </div>
+        </div>  <!--//wrap-->
+    </footer>   <!--//#footer-->
+</div>  <!-- //#wrapper-->
+
+<script>
+    var nvk = new NeoVirtualKeyboard({keyLayout:'KOREAN', keyLayoutType:'SIMPLE'});
+    $('#openNVK_sj').click(function() {
+        nvk.showKeyboard(this, {
+            inputElement: '#total_search',
+            offset: {
+                top: 0,
+                left: 0
+            }
+        });
+        $('#neoVirtualKeyboard .close').focus();
+    });
+    $(document).on('click', '#neoVirtualKeyboard .close', function() {
+        $('#header .header_box .search .keyboard').focus();
+    });
+</script>
+</body>
+</html>

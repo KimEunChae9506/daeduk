@@ -1,0 +1,46 @@
+@charset "UTF-8";
+#neoKeyboard *,.neoVK *{box-sizing:border-box}
+#neoKeyboard{color:#333;font-family:'Malgun Gothic','맑은 고딕',Dotum,'돋움',AppleGothic,AppleSDGothicNeo,Helvetica,sans-serif;font-size:14px;font-size-adjust:none;font-weight:400;line-height:16px}
+#neoKeyboard *{-webkit-text-size-adjust:none;-moz-text-size-adjust:none}
+#neoKeyboard li,#neoKeyboard ul{list-style:none}
+#neoKeyboard .clearfix:after{display:block;visibility:hidden;clear:both;content:".";overflow:hidden;width:0;height:0;font-size:0;line-height:0;text-indent:-9999px}
+#neoKeyboard .clearfix{display:block}
+#neoKeyboard a:link,#neoKeyboard a:visited{color:#636363;text-decoration:none}
+#neoKeyboard a:active,#neoKeyboard a:hover{color:#000;text-decoration:none}
+#neoKeyboard i{font-style:normal}
+.neoVK{position:absolute;z-index:9999;width:440px;min-height:195px;margin:0;background-color:#fafafa;border:1px solid #d5d5d5;box-shadow:0 0 10px rgba(0,0,0,.1)}
+.neoVK :after,.neoVK :before{content:'';display:none;speak:none;font-style:normal;font-variant:normal;font-weight:400;text-transform:none;line-height:1px;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+.neoVK button{margin:0;padding:0;background:0 0;border:none;text-transform:none;vertical-align:middle;cursor:pointer}
+.neoVK #selectLang{display:block;margin:15px 0 10px 15px;color:#333;font-size:14px;line-height:16px}
+.neoVK .close{display:block;position:absolute;top:10px;right:10px;width:22px;height:22px;color:transparent;font-size:1px}
+.neoVK .close:after,.neoVK .close:before{display:block;position:absolute;top:0;left:0;right:0;bottom:0;width:2px;height:16px;margin:auto;background-color:#555;border-radius:1px}
+.neoVK .close:before{transform:rotate(45deg)}
+.neoVK .close:after{transform:rotate(-45deg)}
+.neoVK>.keyboard-layout{width:407px;margin:0 auto 17px;padding:0}
+.neoVK>.keyboard-layout button{display:block;position:relative;width:100%;height:100%;margin:0;padding:0;background-color:#fff}
+.neoVK .special-event em:before,.neoVK>.keyboard-layout i,.neoVK>.keyboard-layout span{display:block;position:absolute}
+.neoVK>.keyboard-layout button:hover{background-color:#eaeaea}
+.neoVK>.keyboard-layout button.active,.neoVK>.keyboard-layout button:active,.neoVK>.keyboard-layout button:focus{border:none;outline:0}
+.neoVK>.keyboard-layout button.active:after,.neoVK>.keyboard-layout button.active:before,.neoVK>.keyboard-layout button:active:after,.neoVK>.keyboard-layout button:active:before,.neoVK>.keyboard-layout button:focus:after,.neoVK>.keyboard-layout button:focus:before{display:block;position:absolute;top:1px;width:5px;height:26px;background:url(../images/keyboard/keyboard-img.svg) no-repeat}
+.neoVK>.keyboard-layout button.active:before,.neoVK>.keyboard-layout button:active:before,.neoVK>.keyboard-layout button:focus:before{left:1px;background-position:0 0}
+.neoVK>.keyboard-layout button.active:after,.neoVK>.keyboard-layout button:active:after,.neoVK>.keyboard-layout button:focus:after{right:1px;background-position:-6px 0}
+.neoVK>.keyboard-layout button.active{background-color:#D6E5EF}
+.neoVK>.keyboard-layout>li{display:block;float:left;width:30px;height:30px;margin:-1px 0 0 -1px;padding:0;border:1px solid #979797}
+.neoVK>.keyboard-layout>li.absorption{width:59px;color:#347daf;font-size:10px;font-weight:800;line-height:12px}
+.neoVK>.keyboard-layout>li.absorption.all{width:100%;text-align:center}
+.neoVK>.keyboard-layout>li.absorption.all button{background-color:#f4f4f4}
+.neoVK>.keyboard-layout span{left:4px;bottom:2px;color:#333;font-size:14px;line-height:16px}
+.neoVK>.keyboard-layout i{top:2px;right:3px;color:#777;font-size:10px;line-height:12px;font-style:normal}
+.neoVK>ul.simple span{top:0;left:0;right:0;bottom:0;height:16px;margin:auto}
+.neoVK .special-event em{display:block;height:0;color:transparent;font-size:3px}
+.neoVK .special-event em:before{top:0;left:0;right:0;bottom:0;margin:auto;background:url(../images/keyboard/keyboard-img.svg) no-repeat}
+.neoVK .special-event em.backspace-key:before{width:21px;height:11px;background-position:-11px -8px}
+.neoVK .special-event em.tab-key:before{width:18px;height:20px;background-position:-33px -2px}
+.neoVK .special-event em.lang-conversion:before{width:12px;height:13px}
+.neoVK .special-event em.ko:before{background-position:-53px -7px}
+.neoVK .special-event em.en:before{background-position:-66px -7px}
+.neoVK .special-event em.return-key:before{width:50px;height:22px;background-position:-77px -3px}
+.neoVK .special-event em.shift-key:before{width:51px;height:22px}
+.neoVK .special-event em.left:before{background-position:-129px -2px}
+.neoVK .special-event em.right:before{background-position:-181px -2px}
+.neoVK .special-event em.space:before{width:50px;height:12px;background-position:-233px -9px}
