@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8"%><%@ include file="./api/common/ProSearch.jsp" %><% request.setCharacterEncoding("UTF-8");%><%
 
-    boolean isDebug = false;
+    boolean isDebug = true;
 	boolean isParamLog = true;
 
     int totalViewCount 	= 3;    //통합검색시 출력건수
@@ -481,6 +481,8 @@
                         </div>
                     </header>
                     <div id="contents">
+                    
+                       <%@ include file="./result/view_list.jsp" %>
                        
                         <section class="result result_news">
                             <h3></h3>
