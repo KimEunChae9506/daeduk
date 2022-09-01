@@ -56,6 +56,7 @@
 
 	if(!realQuery.equals("")){
 		ProSearch tagSearch = new ProSearch(isDebug);
+		System.out.println("realQuery::"+realQuery);
 		tagSearch.addIndex( "tag" );	
 		tagSearch.setAlias("tag", "tag");
 		tagSearch.setSearchField("tag", "chng_tag_orgnm");	
@@ -67,8 +68,8 @@
 		SearchHit [] tagHits =  sitemTag.getResponse().getHits().getHits(); 
 		
 			for ( SearchHit hit : tagHits ) { 
-				String chngTagNm	= tagSearch.getFieldData(hit,"chng_tag_nm","",false);
-				chngTags 			= chngTagNm.split(",");
+				String chngTagNm	   = tagSearch.getFieldData(hit,"chng_tag_nm","",false);
+				chngTags = chngTagNm.split(",");
 			}
 	}
 
@@ -80,6 +81,7 @@
 	if ( !index.equals("TOTAL") ) {
 		indices = new String [] { index } ;
 	}
+
 
     ProSearch proSearch = new ProSearch(isDebug,indices);
 	ProPaging proPaging = null;
@@ -392,7 +394,6 @@
                 <div class="logout applesb">로그아웃</div>
             </div>
         </div>
-<<<<<<< HEAD
         <div class="top_menu">
             <div class="q_link"></div>
             <div class="center_menu push_tag">
@@ -421,193 +422,6 @@
                             <div class="sub_menu">
                                 <div class="sub_tit applesb">내부</div>
                                 <ul>
-=======
-    </header>
-    <div id="container">
-        <div class="wrap clearfix">
-            <main class="colgroup">
-                <article>
-                    <header class="sub_head">
-                       
-                        <div class="sub_title">
-                            <h2>검색어 <strong>“전자결재”</strong>에 대한 검색결과는 <mark class="em_red"><%=searchTotalCount%></mark>건입니다.</h2>
-                        </div>
-                    </header>
-                    <div id="contents">
-                    
-                       <%@ include file="./result/view_list.jsp" %>
-                       
-                        <section class="result result_news">
-                            <h3></h3>
-                           <div class="resultbox">
-                                <div class="title"><a href="#n">전자결재 제목<mark class="em_red">전자결재</mark> 전자결재</a></div>
-                                <div class="text">전자결재 내용 <mark class="em_red">전자결재 내용 </mark>전자결재 내용 전자결재 내용 전자결재 내용 전자결재 내용 전자결재 내용 전자결재 내용 전자결재 내용 전자결재 내용 전자결재 내용 전자결재 내용 전자결재 내용 전자결재 내용 전자결재 내용 전자결재 내용 전자결재 내용  ....</div>
-                                <div class="filebox">
-                                    <ul class="bu">
-                                        <li>
-                                            <div class="filetitle">첨부파일: 첨부파일.pptx, 첨부파일.pptx</div> 
-                                        </li>
-                                        
-                                    </ul>
-                                </div>
-								<div class="atch_prvw" id=""  >첨부내용 첨부내용 첨부내용 첨부내용 첨부내용 첨부내용 첨부내용 첨부내용 첨부내용 첨부내용 첨부내용 첨부내용 첨부내용 첨부내용 첨부내용 첨부내용 첨부내용 첨부내용 첨부내용 첨부내용 첨부내용 첨부내용 첨부내용 첨부내용 첨부내용 첨부내용 첨부내용 첨부내용 첨부내용 첨부내용 첨부내용.... </div>
-                                <div class="path">부서명 > 작성자</div>
-                            </div>
-                            <!--a href="#none" class="more skip">더보기</a-->
-                        </section>
-                        <!-- 철원 소식 -->
-                        <section class="result">
-                            <h3>민원서식 (총<mark class="em_red">12</mark>건)</h3>
-                            <div class="resultbox">
-                                <div class="title"><a href="#n">통신판매업신고</a></div>
-                                <div class="text">통신판매업자의 신규 신고 서식</div>
-                                <div class="filebox">
-                                    <ul class="bu">
-                                        <li>
-                                            <div class="filetitle icons folder">구매안전서비스 비적용 대상 확인서.hwp</div>
-                                            <div class="downbox">
-                                                <a href="#n" class="down"><span>HWP파일</span></a>
-                                                <a href="#n" class="view">미리보기</a>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="resultbox">
-                                <div class="title"><a href="#n">통신판매업신고</a></div>
-                                <div class="text">통신판매업자의 신규 신고 서식</div>
-                                <div class="filebox">
-                                    <ul class="bu">
-                                        <li>
-                                            <div class="filetitle icons folder">구매안전서비스 비적용 대상 확인서.hwp</div>
-                                            <div class="downbox">
-                                                <a href="#n" class="down"><span>HWP파일</span></a>
-                                                <a href="#n" class="view">미리보기</a>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="resultbox">
-                                <div class="title"><a href="#n">통신판매업신고</a></div>
-                                <div class="text">통신판매업자의 신규 신고 서식</div>
-                                <div class="filebox">
-                                    <ul class="bu">
-                                        <li>
-                                            <div class="filetitle icons folder">구매안전서비스 비적용 대상 확인서.hwp</div>
-                                            <div class="downbox">
-                                                <a href="#n" class="down"><span>HWP파일</span></a>
-                                                <a href="#n" class="view">미리보기</a>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <a href="#none" class="more skip">더보기</a>
-                        </section>
-                        <!--민원서식 -->
-                        <section class="result">
-                            <h3>웹페이지 (총<mark class="em_red">12</mark>건)</h3>
-                            <div class="resultbox">
-                                <div class="title"><a href="#n">지역특성</a></div>
-                                <div class="text">경기도의 최북단에 위치하고 있으며, 동쪽은 철원읍과 청산면이 포천시와 접하고 있음. 서쪽은 장남면이 파주시와,북쪽은 신서면이 황해도의 금천로 및 강원도 <mark class="em_red"></mark>과 인접해 있으며 … 3줄이내 출력해주세요 3줄이내 출력해주세요 3줄이내 출력해주세요 3줄이내 출력해주세요 3줄이내 출력해주세요 3줄이내 출력해주세요 3줄이내 출력해주세요 3줄이내 출력해주세요 3줄이내 출력 …</div>
-                                <div class="path">[청] 소개 &gt; 지역특성</div>
-                            </div>
-                            <div class="resultbox">
-                                <div class="title"><a href="#n">지역특성</a></div>
-                                <div class="text">경기도의 최북단에 위치하고 있으며, 동쪽은 철원읍과 청산면이 포천시와 접하고 있음. 서쪽은 장남면이 파주시와,북쪽은 신서면이 황해도의 금천로 및 강원도 <mark class="em_red"></mark>과 인접해 있으며 … 3줄이내 출력해주세요 3줄이내 출력해주세요 3줄이내 출력해주세요 3줄이내 출력해주세요 3줄이내 출력해주세요 3줄이내 출력해주세요 3줄이내 출력해주세요 3줄이내 출력해주세요 3줄이내 출력 …</div>
-                                <div class="path">[청] 소개 &gt; 지역특성</div>
-                            </div>
-                            <div class="resultbox">
-                                <div class="title"><a href="#n">지역특성</a></div>
-                                <div class="text">경기도의 최북단에 위치하고 있으며, 동쪽은 철원읍과 청산면이 포천시와 접하고 있음. 서쪽은 장남면이 파주시와,북쪽은 신서면이 황해도의 금천로 및 강원도 <mark class="em_red"></mark>과 인접해 있으며 … 3줄이내 출력해주세요 3줄이내 출력해주세요 3줄이내 출력해주세요 3줄이내 출력해주세요 3줄이내 출력해주세요 3줄이내 출력해주세요 3줄이내 출력해주세요 3줄이내 출력해주세요 3줄이내 출력 …</div>
-                                <div class="path">[청] 소개 &gt; 지역특성</div>
-                            </div>
-                            <a href="#none" class="more skip">더보기</a>
-
-                        </section>
-                        <!--웹페이지 -->
-                        <section class="result result_board">
-                            <h3>게시판</h3>
-                            <div class="resultbox">
-                                <div class="title"><a href="#n">[<mark class="em_red">철원</mark>소식] <mark class="em_red"> </mark> 마을자치센터 직원 채용공고</a></div>
-                                <div class="text">「사단법인 마을」은 <mark class="em_red">철원</mark>군로부터 철원마을자치센터 수탁기관에 선정되었습니다. 주민주도와 민관협치로 마을공동체 활성화와 주민자치를 촉진하여 민주주의 발전에 기여하고 인간존중, 소통과 「사단법인 마을」은 <mark class="em_red"></mark>으로부터 철원마을자치센터 수탁기관에 선정되었습니다. 주민주도와...</div>
-                                <div class="filebox">
-                                    <ul class="bu">
-                                        <li>
-                                            <div class="filetitle icons folder">[공고문] 철원마을자치센터직원채용공고[1].hwp</div>
-                                            <div class="downbox">
-                                                <a href="#n" class="down"><span>HWP파일</span></a>
-                                                <a href="#n" class="view">미리보기</a>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="filetitle icons folder">[붙임] 응시원서 개인정보동의서[1].hwp </div>
-                                            <div class="downbox">
-                                                <a href="#n" class="down"><span>HWP파일</span></a>
-                                                <a href="#n" class="view">미리보기</a>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="path">[청] 소개 &gt; 구정소식 &gt; 소식 </div>
-                            </div>
-                            <div class="resultbox">
-                                <div class="title"><a href="#n">[<mark class="em_red">철원</mark>소식] <mark class="em_red"> </mark> 마을자치센터 직원 채용공고</a></div>
-                                <div class="text">「사단법인 마을」은 <mark class="em_red">철원</mark>군로부터 철원마을자치센터 수탁기관에 선정되었습니다. 주민주도와 민관협치로 마을공동체 활성화와 주민자치를 촉진하여 민주주의 발전에 기여하고 인간존중, 소통과 「사단법인 마을」은 <mark class="em_red"></mark>으로부터 철원마을자치센터 수탁기관에 선정되었습니다. 주민주도와...</div>
-                                <div class="filebox">
-                                    <ul class="bu">
-                                        <li>
-                                            <div class="filetitle icons folder">[공고문] 철원마을자치센터직원채용공고[1].hwp</div>
-                                            <div class="downbox">
-                                                <a href="#n" class="down"><span>HWP파일</span></a>
-                                                <a href="#n" class="view">미리보기</a>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="filetitle icons folder">[붙임] 응시원서 개인정보동의서[1].hwp </div>
-                                            <div class="downbox">
-                                                <a href="#n" class="down"><span>HWP파일</span></a>
-                                                <a href="#n" class="view">미리보기</a>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="path">[청] 소개 &gt; 구정소식 &gt; 소식 </div>
-                            </div>
-                            <div class="resultbox">
-                                <div class="title"><a href="#n">[<mark class="em_red">철원</mark>소식] <mark class="em_red"> </mark> 마을자치센터 직원 채용공고</a></div>
-                                <div class="text">「사단법인 마을」은 <mark class="em_red">철원</mark>군로부터 철원마을자치센터 수탁기관에 선정되었습니다. 주민주도와 민관협치로 마을공동체 활성화와 주민자치를 촉진하여 민주주의 발전에 기여하고 인간존중, 소통과 「사단법인 마을」은 <mark class="em_red"></mark>으로부터 철원마을자치센터 수탁기관에 선정되었습니다. 주민주도와...</div>
-                                <div class="filebox">
-                                    <ul class="bu">
-                                        <li>
-                                            <div class="filetitle icons folder">[공고문] 철원마을자치센터직원채용공고[1].hwp</div>
-                                            <div class="downbox">
-                                                <a href="#n" class="down"><span>HWP파일</span></a>
-                                                <a href="#n" class="view">미리보기</a>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="filetitle icons folder">[붙임] 응시원서 개인정보동의서[1].hwp </div>
-                                            <div class="downbox">
-                                                <a href="#n" class="down"><span>HWP파일</span></a>
-                                                <a href="#n" class="view">미리보기</a>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="path">[청] 소개 &gt; 구정소식 &gt; 소식 </div>
-                            </div>
-
-                            <a href="#none" class="more skip">더보기</a>
-
-                        </section>
-                        <!--게시글 -->
-                        <section class="result">
-                            <h3>멀티미디어 (총 <mark class="em_red">12</mark>건)</h3>
-                            <div class="photo">
-                                <ul class="clearfix">
->>>>>>> branch 'master' of https://github.com/KimEunChae9506/daeduk.git
                                     <li>
                                         <input type="checkbox">
                                         <span>PCN</span>

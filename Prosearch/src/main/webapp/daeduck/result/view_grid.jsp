@@ -38,30 +38,30 @@
 %>
 
 			
-                               <div class="type2_list">
-                                   <div class="doc_tit applesb"><a href="#"><%=title%></a></div>
-                                   <div class="left">
-                                       <span><%=regt_id %></span>
-                                       <span><%=regt_dt%></span>
-                                       <span>조회수 : <em><%=view_cnt%>건</em></span>
-                                   </div>
-                                   <div class="doc_con"><%=content%></div>
-                                   <div class="att_list">
-                                       <div><span class="clip"></span>첨부파일 : <em><%=atch_file_nm%></em></div>
-                                       <!-- 첨부파일 내용이 있을떄 
-                                       <div class="att_con"><div>산업통상자원부, 과학기술정보통신부, 국방부, 국토교통부, 해양수산부, 방위사업청이 주최하고, 한국무인이동체연구조합, 한국드론산업진흥협회, 코엑스가 주관하는 무인이동체 전시회 및 컨퍼런스인 ‘2022 무인이동체산업엑스포(UWC, Unmanned World Congress)’가 17일부터 19일까지 3일간 서울 코엑스에서 개최된다. 무인이동체산업엑스포(UWC)는 지난 2018년 산업부ㆍ과기정통부 주최로 시작된 국내 최초 무인이동체 전문 행사로, 국가 R&D 혁신성</div></div>
-                                   		-->
-                                   </div>
-                                   <div class="tag_list">
-                                       <div>지식태그</div>
-                                       <ul>
+                <div class="type2_list">
+                    <div class="doc_tit applesb"><a href="#"><%=title%></a></div>
+                    <div class="left">
+                        <span><%=regt_id %></span>
+                        <span><%=regt_dt%></span>
+                        <span>조회수 : <em><%=view_cnt%>건</em></span>
+                    </div>
+                    <div class="doc_con"><%=content%></div>
+                    <div class="att_list">
+                        <div><span class="clip"></span>첨부파일 : <em><%=atch_file_nm%></em></div>
+                        <!-- 첨부파일 내용이 있을떄 
+                        <div class="att_con"><div>산업통상자원부, 과학기술정보통신부, 국방부, 국토교통부, 해양수산부, 방위사업청이 주최하고, 한국무인이동체연구조합, 한국드론산업진흥협회, 코엑스가 주관하는 무인이동체 전시회 및 컨퍼런스인 ‘2022 무인이동체산업엑스포(UWC, Unmanned World Congress)’가 17일부터 19일까지 3일간 서울 코엑스에서 개최된다. 무인이동체산업엑스포(UWC)는 지난 2018년 산업부ㆍ과기정통부 주최로 시작된 국내 최초 무인이동체 전문 행사로, 국가 R&D 혁신성</div></div>
+                    		-->
+                    </div>
+                    <div class="tag_list">
+                        <div>지식태그</div>
+                        <ul>
 <%									for(int i = 1; i < tags.length; i ++){ //##
 %>	
-                                       	<li>#<%=tags[i] %></li>
+                        	<li>#<%=tags[i] %></li>
 <%									} %>
-                                       </ul>
-                                   </div>
-                               </div>
+                        </ul>
+                    </div>
+                </div>
                                
             
 <%
