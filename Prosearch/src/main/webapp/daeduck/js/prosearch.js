@@ -30,7 +30,6 @@ function goKeywordSearch(query) {
 	var searchForm = document.prosearch; 
 	searchForm.pageNo.value = "1";
 	searchForm.query.value = query;
-	searchForm.index.value = "TOTAL";
 	searchForm.sort.value = "";
 	searchForm.query.value = query;
 	goSearch();
@@ -236,7 +235,7 @@ function goPage(pageNo) {
     //alert("sort=" + sort);
 	var searchForm = document.prosearch;
 	searchForm.pageNo.value = pageNo;
-	searchForm.reQuery.value = "2";
+	//searchForm.reQuery.value = "2";
 	searchForm.submit();
 }
 // 정렬
@@ -244,7 +243,7 @@ function goSorting(sort) {
     //alert("sort=" + sort);
 	var searchForm = document.prosearch;
 	searchForm.sort.value = sort;
-	searchForm.reQuery.value = "2";
+	//searchForm.reQuery.value = "2";
 	searchForm.pageNo.value = "1";
 	searchForm.submit();
 }
@@ -278,25 +277,11 @@ function goDetailInit() {
 function goSearch() {
 	var searchForm = document.prosearch; 
 
-
-	if ( searchForm.mode.value != "detail" ) {
-	
-		if (searchForm.query.value == "") {
-			alert("검색어를 입력하세요.");
-			searchForm.query.focus();
-			return;
-		}
-	
-	
-		searchForm.range.value = "ALL";
-		searchForm.sDate.value = "";
-		searchForm.eDate.value = "";
-	
+	if (searchForm.query.value == "") {
+		alert("검색어를 입력하세요.");
+		searchForm.query.focus();
+		return;
 	}
-	
-	searchForm.range.value = "ALL";
-	searchForm.sDate.value = "";
-	searchForm.eDate.value = "";
 
 	
 	searchForm.pageNo.value = "1";
@@ -311,20 +296,14 @@ function goIndexSearch(idx) {
 	var searchForm = document.prosearch; 
 	searchForm.index.value = idx;
 	searchForm.pageNo.value = "1";
-	searchForm.reQuery.value = "2";
+	//searchForm.reQuery.value = "2";
 	searchForm.submit();
 }
 
 //엔터 체크	
 function pressCheckEnter() {   
 	if (event.keyCode == 13) {
-		var searchForm = document.prosearch;
-		
-		if ( searchForm.mode.value == "detail") {
-			return goDetailSearch();
-		} else {
-			return goSearch();		
-		}
+		return goSearch();		
 	}else{
 		return false;
 	}

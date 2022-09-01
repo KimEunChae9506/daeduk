@@ -26,7 +26,7 @@
     static String ES_SERVERS = "127.0.0.1:6201";
     static String MANAGER_SERVERS = "127.0.0.1:6501";
 
-	public String [] INDEX_LIST = new String [] {"s_app"};
+	public String [] INDEX_LIST = new String [] {"doc"};
 		
 	public static final String HIGHLIGHT_STAG = "<em>";
 	public static final String HIGHLIGHT_ETAG = "</em>";
@@ -35,14 +35,14 @@
 	public String [][] SEARCH_INDEX_SETS = new String[][]
 				{
 					{
-							"s_app", 					//    index name
-							"s_app",  					//  alias name
-							"SCORE/DESC",  				// sort
-							"FIELD_SUBJECT,FIELD_CONTENT,FIELD_OWNER_NAME",								// SEARCH_FIELD field
-							"",							// exclude field
-							"FIELD_SUBJECT,FIELD_CONTENT,FIELD_OWNER_NAME",				// highlight field
-							"",							// Filter Query
-							""						// View Index Name
+						"doc", 					//    index name
+						"doc",  					//  alias name
+						"SCORE/DESC",  				// sort
+						"atch_file_nm.ngram,atch_file_nm,title.ngram,title,content,atch_cont,regt_id,tag_nm",								// SEARCH_FIELD field
+						"",							// exclude field
+						"atch_file_nm.ngram,atch_file_nm,title.ngram,title,content,atch_cont,regt_id,tag_nm",				// highlight field
+						"",							// Filter Query
+						""						// View Index Name
 
 					}
 				};

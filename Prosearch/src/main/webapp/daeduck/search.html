@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>지식검색포탈</title>
+<link rel="stylesheet" type="text/css" href="../resources/css/common.css">
+<link rel="stylesheet" type="text/css" href="../resources/css/style.css">
+<link rel="stylesheet" type="text/css" href="../resources/css/font.css">
+<link rel="stylesheet" href="../resources/css/mcustomscrollbar.css">
+<script src="../resources/js/jquery.min.js"></script>
+<script src="../resources/js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="../resources/js/jquery-ui.js"></script>
+<script src="../resources/js/common.js"></script>
+
+</head>
+<body>
+<div class="search_wrap">
+    <form>
+        <div class="header">
+            <h1 class="logo inline-block">
+                <a href="main.html">
+                    <img src="../resources/images/svg/logo.svg" alt="로고">
+                    <span class="inline-block applesb ms5">기술문서검색포탈</span>
+                </a>
+            </h1>
+            <div class="search_box">
+                <div class="search_bar inline-block">
+                    <input type="text" placeholder="검색어를 입력하세요">
+                    <span class="sc_icon"></span>
+                </div>
+                <div class="filter_check inline-block">
+                    <div class="type01">
+                        <input type="checkbox" name="check01">
+                        <label for="check01" class="applesb">업무검색</label>
+                    </div>
+                    <div class="type02">
+                        <input type="checkbox" name="check02">
+                        <label for="check02" class="applesb">문서분류</label>
+                    </div>
+                </div>
+            </div>
+            <div class="user_if">
+                <div class="user_info relative">
+                    <span class="level_img">
+                        <img src="../resources/images/level01.png">
+                    </span>
+                    <div class="user_name inline-block">
+                        <div class="name"><span class="level">[열심회원]</span><span>홍길동님</span></div>
+                    </div>
+                    <div class="name_card">
+                        <div>
+                            <span class="user_level inline-block">
+                                <img src="../resources/images/big_level01.png">
+                            </span>
+                            <dl class="inline-block">
+                                <dt class="appleb">홍길동</dt>
+                                <dd>열심회원</dd>
+                            </dl>
+                        </div>
+                        <div class="card_btm mt35">
+                            <div class="card_list">
+                                <span class="inline-block">게시글수</span>
+                                <span class="inline-block"><a href="#">10개</a></span>
+                            </div>
+                            <div class="card_list">
+                                <span class="inline-block">댓글</span>
+                                <span class="inline-block"><a href="#">30개</a></span>
+                            </div>
+                        </div>
+                        <div class="close_btn"></div>
+                    </div>
+                </div>
+                <div class="logout applesb">로그아웃</div>
+            </div>
+        </div>
+        <div class="top_menu">
+            <div class="q_link"></div>
+            <div class="center_menu push_tag">
+                <div class="inline-block applesb">추천 해시태그</div>
+                <ul class="inline-block">
+                    <li class="inline-block"><a href="#" class="block applesb">#LM</a></li>
+                    <li class="inline-block"><a href="#" class="block applesb">#레이저마킹</a></li>
+                    <li class="inline-block"><a href="#" class="block applesb">#GLM</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="filter_box">
+            <div class="filter_inner">
+                <div class="filter_tit">문서분류</div>
+                <div class="filter_category">
+                    <div class="cate_list">
+                        <div class="main_category appleb">Q1. 내/외부 문서 구분</div>
+                        <div class="sub_category cate_type02">
+                            <div class="sub_menu">
+                                <div class="sub_tit applesb">내부</div>
+                                <ul>
+                                    <li>
+                                        <input type="checkbox">
+                                        <span>PCN</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox">
+                                        <span>ECN</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox">
+                                        <span>고객자료 (개발)</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox">
+                                        <span>고객자료 (품질)</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox">
+                                        <span>기술보고서</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox">
+                                        <span>ES Test 결과보고서</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox">
+                                        <span>제품완료보고서</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox">
+                                        <span>제품양산이관</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox">
+                                        <span>원소재 종합결과</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox">
+                                        <span>분석의뢰 결과보고</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox">
+                                        <span>설치완료 보고서</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox">
+                                        <span>L/R 결과 보고서</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="sub_menu mt40">
+                                <div class="sub_tit applesb">외부</div>
+                                <ul>
+                                    <li>
+                                        <input type="checkbox">
+                                        <span>Seminar</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox">
+                                        <span>협력사 (원소재, 약품, 설비) 공개자료</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox">
+                                        <span>논문, 특허, 인터넷 강의자료</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cate_list">
+                        <div class="main_category appleb">Q2. 공정연관 구분</div>
+                        <div class="sub_category">
+                            <ul>
+                                <li>
+                                    <input type="checkbox">
+                                    <span>PCB 외 조립공정</span>
+                                </li>
+                                <li>
+                                    <input type="checkbox">
+                                    <span>PCB 내부 공정</span>
+                                </li>
+                                <li>
+                                    <input type="checkbox">
+                                    <span>Drill Laser</span>
+                                </li>
+                                <li>
+                                    <input type="checkbox">
+                                    <span>적충</span>
+                                </li>
+                                <li>
+                                    <input type="checkbox">
+                                    <span>토큰</span>
+                                </li>
+                                <li>
+                                    <input type="checkbox">
+                                    <span>이미지</span>
+                                </li>
+                                <li>
+                                    <input type="checkbox">
+                                    <span>SR</span>
+                                </li>
+                                <li>
+                                    <input type="checkbox">
+                                    <span>Finish (Soft Gold, ENEPIG, OSP)</span>
+                                </li>
+                                <li>
+                                    <input type="checkbox">
+                                    <span>ABF Lami</span>
+                                </li>
+                                <li>
+                                    <input type="checkbox">
+                                    <span>후공정 (AFM/VRS/RM/ 최종수세)</span>
+                                </li>
+                                <li>
+                                    <input type="checkbox">
+                                    <span>Bump (MBM/SPP/Cioning)</span>
+                                </li>
+                                <li>
+                                    <input type="checkbox">
+                                    <span>Saving Unit</span>
+                                </li>
+                                <li>
+                                    <input type="checkbox">
+                                    <span>AOI</span>
+                                </li>
+                                <li>
+                                    <input type="checkbox">
+                                    <span>BBT</span>
+                                </li>
+                                <li>
+                                    <input type="checkbox">
+                                    <span>기타</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="cate_list">
+                        <div class="main_category appleb">Q3. 상세업무 구분</div>
+                        <div class="sub_category">
+                            <ul>
+                                <li>
+                                    <input type="checkbox">
+                                    <span>원가</span>
+                                </li>
+                                <li>
+                                    <input type="checkbox">
+                                    <span>Capacity</span>
+                                </li>
+                                <li>
+                                    <input type="checkbox">
+                                    <span>공정능력(Capabillity)</span>
+                                </li>
+                                <li>
+                                    <input type="checkbox">
+                                    <span>수율</span>
+                                </li>
+                                <li>
+                                    <input type="checkbox">
+                                    <span>신뢰성</span>
+                                </li>
+                                <li>
+                                    <input type="checkbox">
+                                    <span>고객사 교류회</span>
+                                </li>
+                                <li>
+                                    <input type="checkbox">
+                                    <span>고객CAR</span>
+                                </li>
+                                <li>
+                                    <input type="checkbox">
+                                    <span>원자재</span>
+                                </li>
+                                <li>
+                                    <input type="checkbox">
+                                    <span>기술/시장동향</span>
+                                </li>
+                                <li>
+                                    <input type="checkbox">
+                                    <span>공법</span>
+                                </li>
+                                <li>
+                                    <input type="checkbox">
+                                    <span>설비</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="filter_search">검색</div>
+                <div class="filter_close">닫기</div>
+            </div>
+        </div>
+        <div class="container relative">
+            <div class="total_search">
+                <div class="sc_result"><span style="color:#ff5544;">"레이저 마킹"</span>에 대한 <span>248건</span>의 검색 결과가 있습니다.</div>
+                <div class="result_btm">
+                    <div class="results_list">
+                        <ul>
+                            <li class="active"><a href="#">전체</a></li>
+                            <li><a href="#">Seminar</a></li>
+                            <li><a href="#">협력사(원소재, 약품, 설비) 공개자료</a></li>
+                            <li><a href="#">논문, 특허, 인터넷 강의자료</a></li>
+                            <li><a href="#">원가</a></li>
+                            <li><a href="#">Capacity</a></li>
+                            <li><a href="#">공정능력 (Capability)</a></li>
+                            <li><a href="#">수율</a></li>
+                            <li><a href="#">신뢰성</a></li>
+                        </ul>
+                    </div>
+                    <div class="result_con">
+                        <div class="type_op">
+                            <span class="list_type1 active">
+                                <a href="#type1_con"></a>
+                            </span>
+                            <span class="list_type2">
+                                <a href="#type2_con"></a>
+                            </span>
+                        </div>
+                        <div class="types_con">
+                            <div id="type1_con">
+                                <table>
+                                    <colgroup>
+                                        <col style="width:3%;">
+                                        <col style="width:47%;">
+                                        <col style="width:12%;">
+                                        <col style="width:12%;">
+                                        <col style="width:8%;">
+                                        <col style="width:18%;">
+                                    </colgroup>
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                
+                                            </th>
+                                            <th>
+                                                <div>제목</div>
+                                            </th>
+                                            <th>
+                                                <div>작성일</div>
+                                            </th>
+                                            <th>
+                                                <div>작성자</div>
+                                            </th>
+                                            <th>
+                                                <div>조회</div>
+                                            </th>
+                                            <th>
+                                                <div>해시태그</div>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <div>
+                                                    <span class="clip"></span>
+                                                </div>
+                                            </td>
+                                            <td class="result_tit">
+                                                <div>반도체는 어떻게 만들어질까?(반도체 생산과정, 반도체 공정과정)</div>
+                                            </td>
+                                            <td>
+                                                <div>2022-08-01</div>
+                                            </td>
+                                            <td>
+                                                <div>홍길동</div>
+                                            </td>
+                                            <td>
+                                                <div>1,242</div>
+                                            </td>
+                                            <td>
+                                                <div>#레이저마킹 #LM</div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div></div>
+                                            </td>
+                                            <td class="result_tit">
+                                                <div>반도체 8대 공정 요약 정리 - Computing</div>
+                                            </td>
+                                            <td>
+                                                <div>2022-08-01</div>
+                                            </td>
+                                            <td>
+                                                <div>Adminstrator</div>
+                                            </td>
+                                            <td>
+                                                <div>275</div>
+                                            </td>
+                                            <td>
+                                                <div>#GLM, #LM</div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div>
+                                                    <span class="clip"></span>
+                                                </div>
+                                            </td>
+                                            <td class="result_tit">
+                                                <div>[반도체공정] 1. 웨이퍼(Wafer) 제조 과정</div>
+                                            </td>
+                                            <td>
+                                                <div>2022-08-01</div>
+                                            </td>
+                                            <td>
+                                                <div>홍길동</div>
+                                            </td>
+                                            <td>
+                                                <div>125</div>
+                                            </td>
+                                            <td>
+                                                <div>#LaserMarking</div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div></div>
+                                            </td>
+                                            <td class="result_tit">
+                                                <div>반도체 물질의결정 결함(crystal defects)</div>
+                                            </td>
+                                            <td>
+                                                <div>2022-08-01</div>
+                                            </td>
+                                            <td>
+                                                <div>Adminstrator</div>
+                                            </td>
+                                            <td>
+                                                <div>50,369</div>
+                                            </td>
+                                            <td>
+                                                <div>#레이저마킹, #반도체</div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div></div>
+                                            </td>
+                                            <td class="result_tit">
+                                                <div>Metal Semiconductor junction - Ohmic contact</div>
+                                            </td>
+                                            <td>
+                                                <div>2022-08-01</div>
+                                            </td>
+                                            <td>
+                                                <div>Adminstrator</div>
+                                            </td>
+                                            <td>
+                                                <div>327</div>
+                                            </td>
+                                            <td>
+                                                <div>#Semiconductor, #레이저마킹</div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div></div>
+                                            </td>
+                                            <td class="result_tit">
+                                                <div>반도체는 어떻게 만들어질까?(반도체 생산과정, 반도체 공정과정)</div>
+                                            </td>
+                                            <td>
+                                                <div>2022-08-01</div>
+                                            </td>
+                                            <td>
+                                                <div>홍길동</div>
+                                            </td>
+                                            <td>
+                                                <div>1,242</div>
+                                            </td>
+                                            <td>
+                                                <div>#레이저마킹 #LM</div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div></div>
+                                            </td>
+                                            <td class="result_tit">
+                                                <div>반도체 8대 공정 요약 정리 - Computing</div>
+                                            </td>
+                                            <td>
+                                                <div>2022-08-01</div>
+                                            </td>
+                                            <td>
+                                                <div>Adminstrator</div>
+                                            </td>
+                                            <td>
+                                                <div>275</div>
+                                            </td>
+                                            <td>
+                                                <div>#GLM, #LM</div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div>
+                                                    <span class="clip"></span>
+                                                </div>
+                                            </td>
+                                            <td class="result_tit">
+                                                <div>[반도체공정] 1. 웨이퍼(Wafer) 제조 과정</div>
+                                            </td>
+                                            <td>
+                                                <div>2022-08-01</div>
+                                            </td>
+                                            <td>
+                                                <div>홍길동</div>
+                                            </td>
+                                            <td>
+                                                <div>125</div>
+                                            </td>
+                                            <td>
+                                                <div>#LaserMarking</div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div></div>
+                                            </td>
+                                            <td class="result_tit">
+                                                <div>반도체 물질의결정 결함(crystal defects)</div>
+                                            </td>
+                                            <td>
+                                                <div>2022-08-01</div>
+                                            </td>
+                                            <td>
+                                                <div>Adminstrator</div>
+                                            </td>
+                                            <td>
+                                                <div>50,369</div>
+                                            </td>
+                                            <td>
+                                                <div>#레이저마킹, #반도체</div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div></div>
+                                            </td>
+                                            <td class="result_tit">
+                                                <div>Metal Semiconductor junction - Ohmic contact</div>
+                                            </td>
+                                            <td>
+                                                <div>2022-08-01</div>
+                                            </td>
+                                            <td>
+                                                <div>Adminstrator</div>
+                                            </td>
+                                            <td>
+                                                <div>327</div>
+                                            </td>
+                                            <td>
+                                                <div>#Semiconductor, #레이저마킹</div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div></div>
+                                            </td>
+                                            <td class="result_tit">
+                                                <div>반도체는 어떻게 만들어질까?(반도체 생산과정, 반도체 공정과정)</div>
+                                            </td>
+                                            <td>
+                                                <div>2022-08-01</div>
+                                            </td>
+                                            <td>
+                                                <div>홍길동</div>
+                                            </td>
+                                            <td>
+                                                <div>1,242</div>
+                                            </td>
+                                            <td>
+                                                <div>#레이저마킹 #LM</div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div></div>
+                                            </td>
+                                            <td class="result_tit">
+                                                <div>반도체 8대 공정 요약 정리 - Computing</div>
+                                            </td>
+                                            <td>
+                                                <div>2022-08-01</div>
+                                            </td>
+                                            <td>
+                                                <div>Adminstrator</div>
+                                            </td>
+                                            <td>
+                                                <div>275</div>
+                                            </td>
+                                            <td>
+                                                <div>#GLM, #LM</div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div></div>
+                                            </td>
+                                            <td class="result_tit">
+                                                <div>[반도체공정] 1. 웨이퍼(Wafer) 제조 과정</div>
+                                            </td>
+                                            <td>
+                                                <div>2022-08-01</div>
+                                            </td>
+                                            <td>
+                                                <div>홍길동</div>
+                                            </td>
+                                            <td>
+                                                <div>125</div>
+                                            </td>
+                                            <td>
+                                                <div>#LaserMarking</div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div></div>
+                                            </td>
+                                            <td class="result_tit">
+                                                <div>반도체 물질의결정 결함(crystal defects)</div>
+                                            </td>
+                                            <td>
+                                                <div>2022-08-01</div>
+                                            </td>
+                                            <td>
+                                                <div>Adminstrator</div>
+                                            </td>
+                                            <td>
+                                                <div>50,369</div>
+                                            </td>
+                                            <td>
+                                                <div>#레이저마킹, #반도체</div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div></div>
+                                            </td>
+                                            <td class="result_tit">
+                                                <div>Metal Semiconductor junction - Ohmic contact</div>
+                                            </td>
+                                            <td>
+                                                <div>2022-08-01</div>
+                                            </td>
+                                            <td>
+                                                <div>Adminstrator</div>
+                                            </td>
+                                            <td>
+                                                <div>327</div>
+                                            </td>
+                                            <td>
+                                                <div>#Semiconductor, #레이저마킹</div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="pagin_bar center font0">
+                                    <div class="pg_ctr_01 inline-block">
+                                        <span class="pg_fprev"></span>
+                                        <span class="pg_prev ms3"></span>
+                                    </div>
+                                    <div class="page_count inline-block">
+                                        <span class="active">1</span>
+                                        <span class="">2</span>
+                                        <span class="">3</span>
+                                        <span class="">4</span>
+                                        <span class="">5</span>
+                                    </div>
+                                    <div class="pg_ctr_01 inline-block">
+                                        <span class="pg_next"></span>
+                                        <span class="pg_fnext ms3"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="type2_con">
+                                <div class="type2_list">
+                                    <div class="doc_tit applesb"><a href="#">반도체는 어떻게 만들어질까?(반도체 생산과정, 반도체 공정과정)반도체는 어떻게 만들어질까?</a></div>
+                                    <div class="left">
+                                        <span>홍길동</span>
+                                        <span>2022.08.27 14:35:33</span>
+                                        <span>조회수 : <em>3,207건</em></span>
+                                    </div>
+                                    <div class="doc_con">산업통상자원부, 과학기술정보통신부, 국방부, 국토교통부, 해양수산부, 방위사업청이 주최하고, 한국무인이동체연구조합, 한국드론산업진흥협회, 코엑스가 주관하는 무인이동체 전시회 및 컨퍼런스인 ‘2022 무인이동체산업엑스포(UWC, Unmanned World Congress)’가 17일부터 19일까지 3일간 서울 코엑스에서 개최된다. 무인이동체산업엑스포(UWC)는 지난 2018년 산업부ㆍ과기정통부 주최로 시작된 국내 최초 무인이동체 전문 행사로, 국가 R&D 혁신성</div>
+                                    <div class="att_list">
+                                        <div><span class="clip"></span>첨부파일 : <em>반도체 생산과정과 공정과정.pdf</em></div>
+                                        <!-- 첨부파일 내용이 있을떄 -->
+                                        <div class="att_con"><div>산업통상자원부, 과학기술정보통신부, 국방부, 국토교통부, 해양수산부, 방위사업청이 주최하고, 한국무인이동체연구조합, 한국드론산업진흥협회, 코엑스가 주관하는 무인이동체 전시회 및 컨퍼런스인 ‘2022 무인이동체산업엑스포(UWC, Unmanned World Congress)’가 17일부터 19일까지 3일간 서울 코엑스에서 개최된다. 무인이동체산업엑스포(UWC)는 지난 2018년 산업부ㆍ과기정통부 주최로 시작된 국내 최초 무인이동체 전문 행사로, 국가 R&D 혁신성</div></div>
+                                    </div>
+                                    <div class="tag_list">
+                                        <div>지식태그</div>
+                                        <ul>
+                                            <li>#레이저</li>
+                                            <li>#Laser</li>
+                                            <li>#LaserMarketing</li>
+                                            <li>#레이저마케팅</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="type2_list">
+                                    <div class="doc_tit applesb"><a href="#">반도체는 어떻게 만들어질까?(반도체 생산과정, 반도체 공정과정)</a></div>
+                                    <div class="left">
+                                        <span>홍길동</span>
+                                        <span>2022.07.23 14:35:33</span>
+                                        <span>조회수 : <em>3,207건</em></span>
+                                    </div>
+                                    <div class="doc_con">산업통상자원부, 과학기술정보통신부, 국방부, 국토교통부, 해양수산부, 방위사업청이 주최하고, 한국무인이동체연구조합, 한국드론산업진흥협회, 코엑스가 주관하는 무인이동체 전시회 및 컨퍼런스인 ‘2022 무인이동체산업엑스포(UWC, Unmanned World Congress)’가 17일부터 19일까지 3일간 서울 코엑스에서 개최된다. 무인이동체산업엑스포(UWC)는 지난 2018년 산업부ㆍ과기정통부 주최로 시작된 국내 최초 무인이동체 전문 행사로, 국가 R&D 혁신성</div>
+                                    <div class="att_list">
+                                        <div><span class="clip"></span>첨부파일 : <em>반도체 공정과정 순서도.jpg</em></div>
+                                    </div>
+                                    <div class="tag_list">
+                                        <div>지식태그</div>
+                                        <ul>
+                                            <li>#레이저</li>
+                                            <li>#Laser</li>
+                                            <li>#LaserMarketing</li>
+                                            <li>#레이저마케팅</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="type2_list">
+                                    <div class="doc_tit applesb"><a href="#">반도체는 어떻게 만들어질까?(반도체 생산과정, 반도체 공정과정)반도체는 어떻게 만들어질까?</a></div>
+                                    <div class="left">
+                                        <span>홍길동</span>
+                                        <span>2022.08.27 14:35:33</span>
+                                        <span>조회수 : <em>3,207건</em></span>
+                                    </div>
+                                    <div class="doc_con">산업통상자원부, 과학기술정보통신부, 국방부, 국토교통부, 해양수산부, 방위사업청이 주최하고, 한국무인이동체연구조합, 한국드론산업진흥협회, 코엑스가 주관하는 무인이동체 전시회 및 컨퍼런스인 ‘2022 무인이동체산업엑스포(UWC, Unmanned World Congress)’가 17일부터 19일까지 3일간 서울 코엑스에서 개최된다. 무인이동체산업엑스포(UWC)는 지난 2018년 산업부ㆍ과기정통부 주최로 시작된 국내 최초 무인이동체 전문 행사로, 국가 R&D 혁신성</div>
+                                    <div class="att_list">
+                                        <div><span class="clip"></span>첨부파일 : <em>반도체 생산과정과 공정과정.pdf</em></div>
+                                        <!-- 첨부파일 내용이 있을떄 -->
+                                        <div class="att_con"><div>산업통상자원부, 과학기술정보통신부, 국방부, 국토교통부, 해양수산부, 방위사업청이 주최하고, 한국무인이동체연구조합, 한국드론산업진흥협회, 코엑스가 주관하는 무인이동체 전시회 및 컨퍼런스인 ‘2022 무인이동체산업엑스포(UWC, Unmanned World Congress)’가 17일부터 19일까지 3일간 서울 코엑스에서 개최된다. 무인이동체산업엑스포(UWC)는 지난 2018년 산업부ㆍ과기정통부 주최로 시작된 국내 최초 무인이동체 전문 행사로, 국가 R&D 혁신성</div></div>
+                                    </div>
+                                    <div class="tag_list">
+                                        <div>지식태그</div>
+                                        <ul>
+                                            <li>#레이저</li>
+                                            <li>#Laser</li>
+                                            <li>#LaserMarketing</li>
+                                            <li>#레이저마케팅</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="more_view">검색결과 더보기<span></span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="contact inline-block">
+                <span class="inline-block">
+                    <a href="#" class="applesb">개인정보취급방침</a>
+                </span>
+                <span class="inline-block applesb">연락처 안내 : 031-8040-8000</span>
+            </div>
+            <div class="inline-block ms30">Copyright© DAEDUCK ELECTRONICS Co.,Ltd. All rights reserved.</div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

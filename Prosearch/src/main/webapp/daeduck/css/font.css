@@ -1,30 +1,41 @@
-@charset "UTF-8";
-
-/* spoqaHanSans */
-@font-face{
-    font-family:'SpoqaHanSans';
-    font-weight: 400;
-    src:url("../font/SpoqaHanSans-Regular.woff2") format('woff2'),
-    url("../font/SpoqaHanSans-Regular.woff") format('woff');
-}
-@font-face{
-    font-family:'SpoqaHanSans';
-    font-weight: 600;
-    src:url("../font/SpoqaHanSans-Bold.woff2") format('woff2'),
-    url("../font/SpoqaHanSans-Bold.woff") format('woff');
-}
-
-/* 나눔스퀘어 */
-@font-face{
-    font-family:'NanumS';
-    font-weight: 400;
-    src:url("../font/NanumSquareR.woff2") format('woff2'),
-    url("../font/NanumSquareR.woff") format('woff');
-}
-@font-face{
-    font-family:'NanumS';
-    font-weight: 600;
-    src:url("../font/NanumSquareB.woff2") format('woff2'),
-    url("../font/NanumSquareB.woff") format('woff');
-}
-
+@font-face {
+	font-family: 'AppleSDGothicNeoB';
+	src: url('../fonts/AppleSDGothicNeoB.ttf');
+	src: url('../fonts/AppleSDGothicNeoB.ttf') format('truetype');
+	font-weight: normal;
+ }
+  @font-face {
+	font-family: 'AppleSDGothicNeoR';
+	src: url('../fonts/AppleSDGothicNeoR.ttf');
+	src: url('../fonts/AppleSDGothicNeoR.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+  }
+  @font-face {
+	font-family: 'AppleSDGothicNeoSB';
+	src: url('../fonts/AppleSDGothicNeoSB.ttf');
+	src: url('../fonts/AppleSDGothicNeoSB.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+  }
+  @font-face {
+	font-family: 'Noto Sans KR';
+	src: url('../fonts/NotoSansKR-Regular.otf');
+	src: url('../fonts/NotoSansKR-Regular.otf') format('opentype');
+	font-weight: 400;
+	font-style: normal;
+ }
+  @font-face {
+	font-family: 'Noto Sans KR';
+	src: url('../fonts/NotoSansKR-Medium.otf');
+	src: url('../fonts/NotoSansKR-Medium.otf') format('opentype');
+	font-weight: 500;
+	font-style: normal;
+  }
+  @font-face {
+	font-family: 'Noto Sans KR';
+	src: url('../fonts/NotoSansKR-Bold.otf');
+	src: url('../fonts/NotoSansKR-Bold.otf') format('opentype');
+	font-weight: 700;
+	font-style: normal;
+  }

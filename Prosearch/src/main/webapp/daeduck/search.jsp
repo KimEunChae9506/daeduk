@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8"%><%@ include file="./api/common/ProSearch.jsp" %><% request.setCharacterEncoding("UTF-8");%><%
 
-    boolean isDebug = true;
+    boolean isDebug = false;
 	boolean isParamLog = true;
 
     int totalViewCount 	= 3;    //통합검색시 출력건수
@@ -9,7 +9,7 @@
 	// 결과 시작 넘버
 	String pageNo 			= ProUtils.getRequest(request, "pageNo", "1");			//시작 번호
 	String query 			= ProUtils.getRequest(request, "query", "");			//검색어
-	String index 			= ProUtils.getRequest(request, "index", "TOTAL");		//index이름
+	String index 			= ProUtils.getRequest(request, "index", "doc");		//index이름
 	String reQuery 			= ProUtils.getRequest(request, "reQuery", "");			//결과내 재검색 체크필드
 	String realQuery 		= ProUtils.getRequest(request, "realQuery", "");		//실제 검색어
 	String mode 			= ProUtils.getRequest(request, "mode", "");				//상세검색(detail)
@@ -34,12 +34,42 @@
 	String userid			= ProUtils.getRequest(request, "userid", "");			//사용자 id
 	String debug			= ProUtils.getRequest(request, "debug", "");			//debug
 
-
+	String[] chngTags 		= new String[]{};
+	long searchTagCount 	= 0;
+	
 	if ( debug.equals("yes")) isDebug = true;
 
 	if ( "ALL".equals(range)) {
 		sDate = "";
 		eDate = "";
+	}
+	
+	if (reQuery.equals("1")) {
+		realQuery = query + " " +  realQuery;
+	} else if (!reQuery.equals("2")) {
+		realQuery = query;
+	}
+	
+	/*******************
+	* 태그 검색 세팅 *
+	********************/
+
+	if(!realQuery.equals("")){
+		ProSearch tagSearch = new ProSearch(isDebug);
+		tagSearch.addIndex( "tag" );	
+		tagSearch.setAlias("tag", "tag");
+		tagSearch.setSearchField("tag", "chng_tag_orgnm");	
+		
+		boolean isSearchTag = tagSearch.doSearch(realQuery, new String [] { "tag" });		
+		searchTagCount = tagSearch.getTotalHitsCount("tag"); //태그검색용 카운트
+		
+		MultiSearchResponse.Item sitemTag =  tagSearch.getMultiSearchResponse().getResponses()[0];
+		SearchHit [] tagHits =  sitemTag.getResponse().getHits().getHits(); 
+		
+			for ( SearchHit hit : tagHits ) { 
+				String chngTagNm	= tagSearch.getFieldData(hit,"chng_tag_nm","",false);
+				chngTags 			= chngTagNm.split(",");
+			}
 	}
 
 	/*******************
@@ -52,12 +82,6 @@
 	}
 
 
-	if (reQuery.equals("1")) {
-		realQuery = query + " " +  realQuery;
-	} else if (!reQuery.equals("2")) {
-		realQuery = query;
-	}
-
     ProSearch proSearch = new ProSearch(isDebug,indices);
 	ProPaging proPaging = null;
 
@@ -68,7 +92,7 @@
 
 	//권한이 있으면 해당 변수에 담는다
 	String filter = "";
-
+/**
 	//상세조건들을 처리하는 변수
 	String extendQuery = "";
 
@@ -96,7 +120,7 @@
 		notQuery += "(\"" +  notstring + "\")";
 	}
 
-
+**/
 	int startNo = ( ProUtils.parseInt(pageNo,1) - 1 ) * setViewCount;
 
     for (int x=0; x< indices.length; x++) {
@@ -119,27 +143,7 @@
 		if ( !"ALL".equals(sfield) ) {
 			proSearch.setSearchField(indices[x], sfield);
 		}
-
-		if ( !"".equals(subject) ) {
-			proSearch.setMapValue(indices[x], "FIELD_SUBJECT", "subject");
-			proSearch.setMapValue(indices[x], "VALUE_SUBJECT", subject);
-		}
-
-		if ( !"".equals(body) ) {
-			proSearch.setMapValue(indices[x], "FIELD_BODY", "body");
-			proSearch.setMapValue(indices[x], "VALUE_BODY", body);
-		}
-
-		if ( !"".equals(attach) ) {
-			proSearch.setMapValue(indices[x], "FIELD_ATTACH", "attach");
-			proSearch.setMapValue(indices[x], "VALUE_ATTACH", sfield);
-		}
-		if ( !"".equals(writer) ) {
-			proSearch.setMapValue(indices[x], "FIELD_ATTACH", "writer");
-			proSearch.setMapValue(indices[x], "VALUE_WRITER", sfield);
-		}
-
-
+		/**
 		if ( !"".equals(extendQuery) ) {
 			proSearch.setQueryString(indices[x],extendQuery);
 		}
@@ -147,7 +151,7 @@
 		if ( !"".equals(notQuery) ) {
 			proSearch.setNotQueryString(indices[x],notQuery);
 		}
-
+		**/
 		if ( !"".equals(filter) ) {
 			proSearch.setFilterQuery(indices[x],filter);
 		}
@@ -174,7 +178,7 @@
 	for (int i = 0; i < indices.length; i++) {
 		searchTotalCount += proSearch.getTotalHitsCount(i);
 	}
-
+	
 	//개별건수 구하기
 	if ( !index.equals("TOTAL") ) {
 		long searchIndexCount = proSearch.getTotalHitsCount(index);
@@ -206,22 +210,20 @@
 <!doctype html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, height=device-height, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="keywords" content="청, 통합검색" />
-    <meta name="description" content=" 통합검색에 오신것을 환영합니다." />
-    <link rel="stylesheet" type="text/css" href="./css/default.css" />
-    <link rel="stylesheet" type="text/css" href="./css/template.css" />
-    <link rel="stylesheet" type="text/css" href="./css/font.css" />
-    <link rel="stylesheet" type="text/css" href="./css/program.css" />
-    <link rel="stylesheet" type="text/css" href="./css/program2.css" />
-    <link rel="stylesheet" type="text/css" href="./css/common_layout.css" />
-    <script src="./js/jquery-1.12.4.HS-20200709.min.js"></script>
-    <script src="./js/program.min.js"></script>
-    <script src="./js/common.js"></script>
-    <script src="./js/datepicker.js"></script>
-    <title>Document</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>지식검색포탈</title>
+<link rel="stylesheet" type="text/css" href="./css/common.css">
+<link rel="stylesheet" type="text/css" href="./css/style.css">
+<link rel="stylesheet" type="text/css" href="./css/font.css">
+<link rel="stylesheet" href="./css/mcustomscrollbar.css">
+<script src="./js/jquery.min.js"></script>
+<script src="./js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="./js/jquery-ui.js"></script>
+<script src="./js/common.js"></script>
+<script src="./js/prosearch.js"></script>
+<script src="./js/program.min.js"></script>
 	<!--
 	$(document).ready(function () {
 		$( "#sDate" ).datepicker({
@@ -326,643 +328,347 @@
 	</script>
 </head>
 <body>
-<div id="wrapper">
-    <header id="header">
-        <div class="accessibility">
-            <a href="#contents">본문 바로가기</a>
-        </div>
-       
-        <div class="header_box">
-            <div class="wrap">
-                <h1 class="logo"><a href="/www/index.do"><img src="./images/common/lotte.png"/><span class="department">전자결재 검색</span></a></h1>
-                <section class="searchbox">
-                    <form name="search" id="search" action="/search/search_page.jsp" method="POST"><!--action 항목이 비어있지 않도록 개발요망!!-->
-                        <fieldset>
-                            <legend>통합검색</legend>
-                            <div class="search clearfix">
-                                <h2 class="skip">통합검색</h2>
-                                <div class="search_wrap">
-                                    <label for="query" class="skip">검색어 입력  </label>
-                                    <input type="search" name="query" id="query" class="total_search" value="" autocomplete="off">
-<!--                                    <input type="hidden" name="startCount" value="0">-->
-<!--                                    <input type="hidden" name="sort" value="DATE">-->
-<!--                                    <input type="hidden" name="collection" value="ALL">-->
-<!--                                    <input type="hidden" name="range" value="A">-->
-<!--                                    <input type="hidden" name="startDate" value="1970.01.01">-->
-<!--                                    <input type="hidden" name="endDate" value="2020.11.17">-->
-<!--                                    <input type="hidden" name="searchField" value="ALL">-->
-<!--                                    <input type="hidden" name="reQuery">-->
-<!--                                    <input type="hidden" name="realQuery" value="">-->
-                                    <button type="button" class="removetext">검색어 제거</button>
-                                    <input type="submit" value="검색" class="search_submit">
-                                </div>
-                                <button type="button" class="detail_search">상세검색</button>
-                                <div class="research">
-									<span class="temp_checkbox">
-										<input type="checkbox" name="reChk" id="reChk">
-									<label for="reChk">결과 내 재검색</label>
-									</span>
-                                </div>
-                                
-                            </div>
-                            <div class="detailbox">
-                                <div class="innerbox">
-                                    <ul>
-                                        <li class="list list01 period">
-                                            <span class="icon">검색기간</span>
-                                            <div class="listbox clearfix">
-                                                <div class="itembox item01">
-													<span class="temp_checkbox">
-														<input type="checkbox" id="check_001">
-														<label for="check_001">전체기간</label>
-													</span>
-                                                </div>
-                                                <div class="itembox item02">
-                                                    <div class="p-date-group textbox">
-                                                        <div class="p-form-group p-date" data-date="datepicker" data-date-format="yyyy.mm.dd">
-                                                            <input type="text" title="검색기간 시작일" class="p-input period_start" id="period_start" placeholder="yyyy.mm.dd" value="1970.01.01">
-                                                            <div class="p-input__split">
-                                                                <button type="button" class="p-input__item p-date__icon">달력 열기</button>
-                                                            </div>
-                                                        </div>
-                                                        <span class="p-form__split">~</span>
-                                                        <div class="p-form-group p-date" data-date="datepicker" data-date-format="yyyy.mm.dd">
-                                                            <input type="text" title="검색기간 종료일" class="p-input period_end" id="period_end" placeholder="yyyy.mm.dd" value="2020.11.17">
-                                                            <div class="p-input__split">
-                                                                <button type="button" class="p-input__item p-date__icon">달력 열기</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div><!--//.itembox-->
-                                                <div class="itembox item03">
-                                                    <button type="button" class="period_btn active" data-period="w" >1주</button>
-                                                    <button type="button" class="period_btn" data-period="m" >1개월</button>
-                                                    <button type="button" class="period_btn" data-period="y" >1년</button>
-                                                </div><!--//.itembox-->
-                                            </div>
-                                        </li>
-                                        <li class="list list02">
-                                            <span class="icon">검색방법</span>
-                                            <div class="listbox clearfix">
-                                                <div class="itembox item01">
-													<span class="temp_checkbox">
-														<input type="radio" name="searchMethod" id="check_002" value="include">
-														<label for="check_002">하나라도 포함된 결과(OR)</label>
-													</span>
-                                                </div>
-                                                <div class="itembox item02">
-													<span class="temp_checkbox">
-														<input type="radio" name="searchMethod" id="check_003" value="exclude">
-														<label for="check_003">제외하는 단어</label>
-													</span>
-                                                    <span class="textbox">
-														<label for="searchQuery" class="skip">제외하는 단어</label>
-														<input type="text" id="searchQuery" class="p-input" name="searchQuery" value="">
-													</span>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li class="list list03">
-                                            <span class="icon">검색범위</span>
-                                            <div class="listbox">
-                                                <div class="itembox range item01">
-													<span class="temp_checkbox">
-														<input type="checkbox" data-all="y" id="check_004">
-														<label for="check_004">전체</label>
-													</span>
-                                                    <span class="temp_checkbox">
-														<input type="checkbox" id="check_005" name="search_field" value="TITLE">
-														<label for="check_005">제목</label>
-													</span>
-                                                    <span class="temp_checkbox">
-														<input type="checkbox" id="check_006" name="search_field" value="CONTENT">
-														<label for="check_006">내용</label>
-													</span>
-                                                    <span class="temp_checkbox">
-														<input type="checkbox" id="check_007" name="search_field" value="FILE_NM">
-														<label for="check_007">파일명</label>
-													</span>
-                                                    
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <button type="button" class="detail_close">닫기</button>
-                            </div>
-                        </fieldset>
-                    </form>
-                </section><!--//search-->
-                <div class="lnb">
-                    <nav class="menu">
-                        <h2 class="skip">주메뉴</h2>
-                        <div class="depth depth1">
-                            <ul class="depth_list depth1_list clearfix">
-                                <li class="depth_item depth1_item  active"><a href="#n" class="depth_text depth1_text">통합검색</a></li>
-                                <li class="depth_item depth1_item"><a href="#n" class="depth_text depth1_text">완료함</a></li>
-                                <li class="depth_item depth1_item"><a href="#n" class="depth_text depth1_text">참조함</a></li>
-                                <li class="depth_item depth1_item"><a href="#n" class="depth_text depth1_text">자동결재함</a></li>
-                                <li class="depth_item depth1_item"><a href="#n" class="depth_text depth1_text">보안문서함</a></li>
-                            </ul>
-                        </div>
-                    </nav>
+<div class="search_wrap">
+<form name="prosearch" id="prosearch" action="<%=request.getRequestURI()%>" method="POST" onsubmit="return false;">
+		<input type="hidden" name="sort" 	value="<%=sort%>">
+		<input type="hidden" name="index" 	value="<%=index%>">
+		<input type="hidden" name="sfield" value="<%=sfield%>">
+		<input type="hidden" name="realQuery" value="<%=realQuery%>" />
+		<input type="hidden" name="reQuery" value="<%=reQuery%>" />
+		<input type="hidden" name="pageNo" value="">
+        <div class="header">
+            <h1 class="logo inline-block">
+                <a href="main.html">
+                    <img src="./images/svg/logo.svg" alt="로고">
+                    <span class="inline-block applesb ms5">기술문서검색포탈</span>
+                </a>
+            </h1>
+            <div class="search_box">
+                <div class="search_bar inline-block">
+                    <input type="text" name="query" id="query" value="<%=query%>" onKeypress="javascript:pressCheckEnter((event),this);" autocomplete="off" placeholder="검색어를 입력하세요">
+                    <span class="sc_icon" onclick="javascript:goSearch()" ></span>
                 </div>
-            </div><!--//wrap-->
+                <div class="filter_check inline-block">
+                    <div class="type01">
+                        <input type="checkbox" name="check01">
+                        <label for="check01" class="applesb">업무검색</label>
+                    </div>
+                    <div class="type02">
+                        <input type="checkbox" name="check02">
+                        <label for="check02" class="applesb">문서분류</label>
+                    </div>
+                </div>
+            </div>
+            <div class="user_if">
+                <div class="user_info relative">
+                    <span class="level_img">
+                        <img src="./images/level01.png">
+                    </span>
+                    <div class="user_name inline-block">
+                        <div class="name"><span class="level">[열심회원]</span><span>홍길동님</span></div>
+                    </div>
+                    <div class="name_card">
+                        <div>
+                            <span class="user_level inline-block">
+                                <img src="./images/big_level01.png">
+                            </span>
+                            <dl class="inline-block">
+                                <dt class="appleb">홍길동</dt>
+                                <dd>열심회원</dd>
+                            </dl>
+                        </div>
+                        <div class="card_btm mt35">
+                            <div class="card_list">
+                                <span class="inline-block">게시글수</span>
+                                <span class="inline-block"><a href="#">10개</a></span>
+                            </div>
+                            <div class="card_list">
+                                <span class="inline-block">댓글</span>
+                                <span class="inline-block"><a href="#">30개</a></span>
+                            </div>
+                        </div>
+                        <div class="close_btn"></div>
+                    </div>
+                </div>
+                <div class="logout applesb">로그아웃</div>
+            </div>
         </div>
-    </header>
-    <div id="container">
-        <div class="wrap clearfix">
-            <main class="colgroup">
-                <article>
-                    <header class="sub_head">
-                       
-                        <div class="sub_title">
-                            <h2>검색어 <strong>“전자결재”</strong>에 대한 검색결과는 <mark class="em_red"><%=searchTotalCount%></mark>건입니다.</h2>
-                        </div>
-                    </header>
-                    <div id="contents">
-                       
-                        <section class="result result_news">
-                            <h3></h3>
-                           <div class="resultbox">
-                                <div class="title"><a href="#n">전자결재 제목<mark class="em_red">전자결재</mark> 전자결재</a></div>
-                                <div class="text">전자결재 내용 <mark class="em_red">전자결재 내용 </mark>전자결재 내용 전자결재 내용 전자결재 내용 전자결재 내용 전자결재 내용 전자결재 내용 전자결재 내용 전자결재 내용 전자결재 내용 전자결재 내용 전자결재 내용 전자결재 내용 전자결재 내용 전자결재 내용 전자결재 내용  ....</div>
-                                <div class="filebox">
-                                    <ul class="bu">
-                                        <li>
-                                            <div class="filetitle">첨부파일: 첨부파일.pptx, 첨부파일.pptx</div> 
-                                        </li>
-                                        
-                                    </ul>
-                                </div>
-								<div class="atch_prvw" id=""  >첨부내용 첨부내용 첨부내용 첨부내용 첨부내용 첨부내용 첨부내용 첨부내용 첨부내용 첨부내용 첨부내용 첨부내용 첨부내용 첨부내용 첨부내용 첨부내용 첨부내용 첨부내용 첨부내용 첨부내용 첨부내용 첨부내용 첨부내용 첨부내용 첨부내용 첨부내용 첨부내용 첨부내용 첨부내용 첨부내용 첨부내용.... </div>
-                                <div class="path">부서명 > 작성자</div>
-                            </div>
-                            <!--a href="#none" class="more skip">더보기</a-->
-                        </section>
-                        <!-- 철원 소식 -->
-                        <section class="result">
-                            <h3>민원서식 (총<mark class="em_red">12</mark>건)</h3>
-                            <div class="resultbox">
-                                <div class="title"><a href="#n">통신판매업신고</a></div>
-                                <div class="text">통신판매업자의 신규 신고 서식</div>
-                                <div class="filebox">
-                                    <ul class="bu">
-                                        <li>
-                                            <div class="filetitle icons folder">구매안전서비스 비적용 대상 확인서.hwp</div>
-                                            <div class="downbox">
-                                                <a href="#n" class="down"><span>HWP파일</span></a>
-                                                <a href="#n" class="view">미리보기</a>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="resultbox">
-                                <div class="title"><a href="#n">통신판매업신고</a></div>
-                                <div class="text">통신판매업자의 신규 신고 서식</div>
-                                <div class="filebox">
-                                    <ul class="bu">
-                                        <li>
-                                            <div class="filetitle icons folder">구매안전서비스 비적용 대상 확인서.hwp</div>
-                                            <div class="downbox">
-                                                <a href="#n" class="down"><span>HWP파일</span></a>
-                                                <a href="#n" class="view">미리보기</a>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="resultbox">
-                                <div class="title"><a href="#n">통신판매업신고</a></div>
-                                <div class="text">통신판매업자의 신규 신고 서식</div>
-                                <div class="filebox">
-                                    <ul class="bu">
-                                        <li>
-                                            <div class="filetitle icons folder">구매안전서비스 비적용 대상 확인서.hwp</div>
-                                            <div class="downbox">
-                                                <a href="#n" class="down"><span>HWP파일</span></a>
-                                                <a href="#n" class="view">미리보기</a>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <a href="#none" class="more skip">더보기</a>
-                        </section>
-                        <!--민원서식 -->
-                        <section class="result">
-                            <h3>웹페이지 (총<mark class="em_red">12</mark>건)</h3>
-                            <div class="resultbox">
-                                <div class="title"><a href="#n">지역특성</a></div>
-                                <div class="text">경기도의 최북단에 위치하고 있으며, 동쪽은 철원읍과 청산면이 포천시와 접하고 있음. 서쪽은 장남면이 파주시와,북쪽은 신서면이 황해도의 금천로 및 강원도 <mark class="em_red"></mark>과 인접해 있으며 … 3줄이내 출력해주세요 3줄이내 출력해주세요 3줄이내 출력해주세요 3줄이내 출력해주세요 3줄이내 출력해주세요 3줄이내 출력해주세요 3줄이내 출력해주세요 3줄이내 출력해주세요 3줄이내 출력 …</div>
-                                <div class="path">[청] 소개 &gt; 지역특성</div>
-                            </div>
-                            <div class="resultbox">
-                                <div class="title"><a href="#n">지역특성</a></div>
-                                <div class="text">경기도의 최북단에 위치하고 있으며, 동쪽은 철원읍과 청산면이 포천시와 접하고 있음. 서쪽은 장남면이 파주시와,북쪽은 신서면이 황해도의 금천로 및 강원도 <mark class="em_red"></mark>과 인접해 있으며 … 3줄이내 출력해주세요 3줄이내 출력해주세요 3줄이내 출력해주세요 3줄이내 출력해주세요 3줄이내 출력해주세요 3줄이내 출력해주세요 3줄이내 출력해주세요 3줄이내 출력해주세요 3줄이내 출력 …</div>
-                                <div class="path">[청] 소개 &gt; 지역특성</div>
-                            </div>
-                            <div class="resultbox">
-                                <div class="title"><a href="#n">지역특성</a></div>
-                                <div class="text">경기도의 최북단에 위치하고 있으며, 동쪽은 철원읍과 청산면이 포천시와 접하고 있음. 서쪽은 장남면이 파주시와,북쪽은 신서면이 황해도의 금천로 및 강원도 <mark class="em_red"></mark>과 인접해 있으며 … 3줄이내 출력해주세요 3줄이내 출력해주세요 3줄이내 출력해주세요 3줄이내 출력해주세요 3줄이내 출력해주세요 3줄이내 출력해주세요 3줄이내 출력해주세요 3줄이내 출력해주세요 3줄이내 출력 …</div>
-                                <div class="path">[청] 소개 &gt; 지역특성</div>
-                            </div>
-                            <a href="#none" class="more skip">더보기</a>
-
-                        </section>
-                        <!--웹페이지 -->
-                        <section class="result result_board">
-                            <h3>게시판</h3>
-                            <div class="resultbox">
-                                <div class="title"><a href="#n">[<mark class="em_red">철원</mark>소식] <mark class="em_red"> </mark> 마을자치센터 직원 채용공고</a></div>
-                                <div class="text">「사단법인 마을」은 <mark class="em_red">철원</mark>군로부터 철원마을자치센터 수탁기관에 선정되었습니다. 주민주도와 민관협치로 마을공동체 활성화와 주민자치를 촉진하여 민주주의 발전에 기여하고 인간존중, 소통과 「사단법인 마을」은 <mark class="em_red"></mark>으로부터 철원마을자치센터 수탁기관에 선정되었습니다. 주민주도와...</div>
-                                <div class="filebox">
-                                    <ul class="bu">
-                                        <li>
-                                            <div class="filetitle icons folder">[공고문] 철원마을자치센터직원채용공고[1].hwp</div>
-                                            <div class="downbox">
-                                                <a href="#n" class="down"><span>HWP파일</span></a>
-                                                <a href="#n" class="view">미리보기</a>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="filetitle icons folder">[붙임] 응시원서 개인정보동의서[1].hwp </div>
-                                            <div class="downbox">
-                                                <a href="#n" class="down"><span>HWP파일</span></a>
-                                                <a href="#n" class="view">미리보기</a>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="path">[청] 소개 &gt; 구정소식 &gt; 소식 </div>
-                            </div>
-                            <div class="resultbox">
-                                <div class="title"><a href="#n">[<mark class="em_red">철원</mark>소식] <mark class="em_red"> </mark> 마을자치센터 직원 채용공고</a></div>
-                                <div class="text">「사단법인 마을」은 <mark class="em_red">철원</mark>군로부터 철원마을자치센터 수탁기관에 선정되었습니다. 주민주도와 민관협치로 마을공동체 활성화와 주민자치를 촉진하여 민주주의 발전에 기여하고 인간존중, 소통과 「사단법인 마을」은 <mark class="em_red"></mark>으로부터 철원마을자치센터 수탁기관에 선정되었습니다. 주민주도와...</div>
-                                <div class="filebox">
-                                    <ul class="bu">
-                                        <li>
-                                            <div class="filetitle icons folder">[공고문] 철원마을자치센터직원채용공고[1].hwp</div>
-                                            <div class="downbox">
-                                                <a href="#n" class="down"><span>HWP파일</span></a>
-                                                <a href="#n" class="view">미리보기</a>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="filetitle icons folder">[붙임] 응시원서 개인정보동의서[1].hwp </div>
-                                            <div class="downbox">
-                                                <a href="#n" class="down"><span>HWP파일</span></a>
-                                                <a href="#n" class="view">미리보기</a>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="path">[청] 소개 &gt; 구정소식 &gt; 소식 </div>
-                            </div>
-                            <div class="resultbox">
-                                <div class="title"><a href="#n">[<mark class="em_red">철원</mark>소식] <mark class="em_red"> </mark> 마을자치센터 직원 채용공고</a></div>
-                                <div class="text">「사단법인 마을」은 <mark class="em_red">철원</mark>군로부터 철원마을자치센터 수탁기관에 선정되었습니다. 주민주도와 민관협치로 마을공동체 활성화와 주민자치를 촉진하여 민주주의 발전에 기여하고 인간존중, 소통과 「사단법인 마을」은 <mark class="em_red"></mark>으로부터 철원마을자치센터 수탁기관에 선정되었습니다. 주민주도와...</div>
-                                <div class="filebox">
-                                    <ul class="bu">
-                                        <li>
-                                            <div class="filetitle icons folder">[공고문] 철원마을자치센터직원채용공고[1].hwp</div>
-                                            <div class="downbox">
-                                                <a href="#n" class="down"><span>HWP파일</span></a>
-                                                <a href="#n" class="view">미리보기</a>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="filetitle icons folder">[붙임] 응시원서 개인정보동의서[1].hwp </div>
-                                            <div class="downbox">
-                                                <a href="#n" class="down"><span>HWP파일</span></a>
-                                                <a href="#n" class="view">미리보기</a>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="path">[청] 소개 &gt; 구정소식 &gt; 소식 </div>
-                            </div>
-
-                            <a href="#none" class="more skip">더보기</a>
-
-                        </section>
-                        <!--게시글 -->
-                        <section class="result">
-                            <h3>멀티미디어 (총 <mark class="em_red">12</mark>건)</h3>
-                            <div class="photo">
-                                <ul class="clearfix">
+        <div class="top_menu">
+            <div class="q_link"></div>
+            <div class="center_menu push_tag">
+            <%	if(searchTagCount > 0 && !"".equals(realQuery)) {
+			%>
+                <div class="inline-block applesb">추천 해시태그</div>
+                <ul class="inline-block">
+                <%
+                for(String tag:chngTags){
+                %>
+                	<li class="inline-block"><a href="#" class="block applesb">#<%= tag %></a></li>
+                <%}
+                %>
+                </ul>
+                <%}
+                %>
+            </div>
+        </div>
+        <div class="filter_box">
+            <div class="filter_inner">
+                <div class="filter_tit">문서분류</div>
+                <div class="filter_category">
+                    <div class="cate_list">
+                        <div class="main_category appleb">Q1. 내/외부 문서 구분</div>
+                        <div class="sub_category cate_type02">
+                            <div class="sub_menu">
+                                <div class="sub_tit applesb">내부</div>
+                                <ul>
                                     <li>
-                                        <a href="#n" title="새창" target="_blank" style="background-image:url('/search/images/common/media_sample.jpg');">
-                                            <span class="photo_title">-평화의 소년상 후원의 밤평화의 소년상 후원의 밤</span>
-                                            <time datetime="2019-08-15">[2019-08-15]</time>
-                                        </a>
+                                        <input type="checkbox">
+                                        <span>PCN</span>
                                     </li>
                                     <li>
-                                        <a href="#n" title="새창" target="_blank" style="background-image:url('/search/images/common/media_sample.jpg');">
-                                            <span class="photo_title">-평화의 소년상 후원의 밤</span>
-                                            <time datetime="2019-08-15">[2019-08-15]</time>
-                                        </a>
+                                        <input type="checkbox">
+                                        <span>ECN</span>
                                     </li>
                                     <li>
-                                        <a href="#n" title="새창" target="_blank" style="background-image:url('/search/images/common/media_sample.jpg');">
-                                            <span class="photo_title">-평화의 소년상 후원의 밤</span>
-                                            <time datetime="2019-08-15">[2019-08-15]</time>
-                                        </a>
+                                        <input type="checkbox">
+                                        <span>고객자료 (개발)</span>
                                     </li>
                                     <li>
-                                        <a href="#n" title="새창" target="_blank" >
-                                            <span class="photo_title">-평화의 소년상 후원의 밤</span>
-                                            <time datetime="2019-08-15">[2019-08-15]</time>
-                                        </a>
+                                        <input type="checkbox">
+                                        <span>고객자료 (품질)</span>
                                     </li>
                                     <li>
-                                        <a href="#n" title="새창" target="_blank" >
-                                            <span class="photo_title">-평화의 소년상 후원의 밤</span>
-                                            <time datetime="2019-08-15">[2019-08-15]</time>
-                                        </a>
+                                        <input type="checkbox">
+                                        <span>기술보고서</span>
                                     </li>
                                     <li>
-                                        <a href="#n" title="새창" target="_blank" >
-                                            <span class="photo_title">-평화의 소년상 후원의 밤</span>
-                                            <time datetime="2019-08-15">[2019-08-15]</time>
-                                        </a>
+                                        <input type="checkbox">
+                                        <span>ES Test 결과보고서</span>
                                     </li>
                                     <li>
-                                        <a href="#n" title="새창" target="_blank" >
-                                            <span class="photo_title">-평화의 소년상 후원의 밤</span>
-                                            <time datetime="2019-08-15">[2019-08-15]</time>
-                                        </a>
+                                        <input type="checkbox">
+                                        <span>제품완료보고서</span>
                                     </li>
                                     <li>
-                                        <a href="#n" title="새창" target="_blank" >
-                                            <span class="skip">등록된 이미지가 없습니다.</span>
-                                        </a>
-                                    </li>
-
-                                </ul>
-                            </div>
-                            <a href="#none" class="more skip">더보기</a>
-                        </section>
-                        <!-- 멀티미디어 -->
-                        <section class="result result_file">
-                            <h3>첨부파일 (총 <mark class="em_red">12</mark>건)</h3>
-                            <div class="file_result">
-                                <ul class="clearfix">
-                                    <li>
-                                        <div class="inner">
-                                            <span class="extension">HWP</span>
-                                            <span class="title">철원걷기대회개최계획(안).hwp</span>
-                                            <div class="btn_box">
-                                                <a href="#n" class="btn down">다운로드</a><a href="#n" class="btn view">미리보기</a>
-                                            </div>
-                                        </div>
+                                        <input type="checkbox">
+                                        <span>제품양산이관</span>
                                     </li>
                                     <li>
-                                        <div class="inner">
-                                            <span class="extension">HWP</span>
-                                            <span class="title">철원걷기대회개최계획(안).hwp</span>
-                                            <div class="btn_box">
-                                                <a href="#n" class="btn down">다운로드</a><a href="#n" class="btn view">미리보기</a>
-                                            </div>
-                                        </div>
+                                        <input type="checkbox">
+                                        <span>원소재 종합결과</span>
                                     </li>
                                     <li>
-                                        <div class="inner">
-                                            <span class="extension">HWP</span>
-                                            <span class="title">철원걷기대회개최계획(안).hwp</span>
-                                            <div class="btn_box">
-                                                <a href="#n" class="btn down">다운로드</a><a href="#n" class="btn view">미리보기</a>
-                                            </div>
-                                        </div>
+                                        <input type="checkbox">
+                                        <span>분석의뢰 결과보고</span>
                                     </li>
                                     <li>
-                                        <div class="inner">
-                                            <span class="extension">PDF</span>
-                                            <span class="title">철원걷기대회개최계획(안).hwp</span>
-                                            <div class="btn_box">
-                                                <a href="#n" class="btn down">다운로드</a><a href="#n" class="btn view">미리보기</a>
-                                            </div>
-                                        </div>
+                                        <input type="checkbox">
+                                        <span>설치완료 보고서</span>
                                     </li>
                                     <li>
-                                        <div class="inner">
-                                            <span class="extension">HWP</span>
-                                            <span class="title">철원걷기대회개최계획(안).hwp</span>
-                                            <div class="btn_box">
-                                                <a href="#n" class="btn down">다운로드</a><a href="#n" class="btn view">미리보기</a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="inner">
-                                            <span class="extension">HWP</span>
-                                            <span class="title">철원걷기대회개최계획(안).hwp</span>
-                                            <div class="btn_box">
-                                                <a href="#n" class="btn down">다운로드</a><a href="#n" class="btn view">미리보기</a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="inner">
-                                            <span class="extension">HWP</span>
-                                            <span class="title">철원걷기대회개최계획(안).hwp</span>
-                                            <div class="btn_box">
-                                                <a href="#n" class="btn down">다운로드</a><a href="#n" class="btn view">미리보기</a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="inner">
-                                            <span class="extension">PDF</span>
-                                            <span class="title">철원걷기대회개최계획(안).hwp</span>
-                                            <div class="btn_box">
-                                                <a href="#n" class="btn down">다운로드</a><a href="#n" class="btn view">미리보기</a>
-                                            </div>
-                                        </div>
+                                        <input type="checkbox">
+                                        <span>L/R 결과 보고서</span>
                                     </li>
                                 </ul>
                             </div>
-                            <a href="#none" class="more skip">더보기</a>
-                        </section>
-                        <!-- SNS -->
-                        <div class="p-pagination">
-                            <div class="p-page">
-								<span class="p-page__control">
-									<a href="#" class="p-page__link prev-end"><span class="skip">처음 페이지</span></a>
-									<a href="#" class="p-page__link prev"><span class="skip">이전 10 페이지</span></a>
-									<a href="#" class="p-page__link prev-one">이전 페이지</a>
-								</span>
-                                <span class="p-page__link-group">
-									<strong title="현재 1페이지" class="p-page__link">1</strong>
-									<a href="" title="2페이지 이동" class="p-page__link active">2</a>
-									<a href="" title="3페이지 이동" class="p-page__link">3</a>
-									<a href="" title="4페이지 이동" class="p-page__link">4</a>
-									<a href="" title="5페이지 이동" class="p-page__link">5</a>
-									<a href="" title="6페이지 이동" class="p-page__link">6</a>
-									<a href="" title="7페이지 이동" class="p-page__link">7</a>
-									<a href="" title="8페이지 이동" class="p-page__link">8</a>
-									<a href="" title="9페이지 이동" class="p-page__link">9</a>
-									<a href="" title="10페이지 이동" class="p-page__link">110</a>
-								</span>
-                                <span class="p-page__control">
-									<a href="#" class="p-page__link next-one">다음 페이지</a>
-									<a href="#" class="p-page__link next"><span class="skip">다음 10 페이지</span></a>
-									<a href="#" class="p-page__link next-end"><span class="skip">끝 페이지</span></a>
-								</span>
+                            <div class="sub_menu mt40">
+                                <div class="sub_tit applesb">외부</div>
+                                <ul>
+                                    <li>
+                                        <input type="checkbox">
+                                        <span>Seminar</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox">
+                                        <span>협력사 (원소재, 약품, 설비) 공개자료</span>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox">
+                                        <span>논문, 특허, 인터넷 강의자료</span>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
-                </article>
-            </main>
-            <div class="side">
-                    <div class="rank">
-                        <h2>인기검색어</h2>
-                        <div class="tab_menu">
-                            <div class="tab_nav">
-                                <a href="#day" class="active">일간</a>
-                                <a href="#week" class="">주간</a>
-                            </div>
-                            <div class="tab_contents">
-                                <div id="day" class="tab_content active">
-                                <ol>
-                                    <li>
-                                        <a href="#n" >소상공인 새희망자금</a>
-                                        <span class="rank_state">
-                                            <span class="up">상승</span>12</span>
-                                    </li>
-                                    <li>
-                                        <a href="#n" >폐기물 인터넷 접수</a>
-                                        <span class="rank_state"><span class="down">하강</span>1</span>
-                                    </li>
-                                    <li>
-                                        <a href="#n" >대학생 아르바이트</a>
-                                        <span class="rank_state"><span class="up">상승</span>3</span>
-                                    </li>
-                                    <li>
-                                        <a href="#n">보일러</a>
-                                        <span class="rank_state"><span class="same">0</span>0</span>
-                                    </li>
-                                    <li>
-                                        <a href="#n">소형 폐기물</a>
-                                        <span class="rank_state"><span class="new">NEW</span></span>
-                                    </li>
-                                    <li>
-                                        <a href="#n" >소형가전 폐기물</a>
-                                        <span class="rank_state"><span class="new">NEW</span></span>
-                                    </li>
-                                    <li>
-                                        <a href="#n">테스트</a>
-                                        <span class="rank_state"><span class="new">NEW</span></span>
-                                    </li>
-                                    <li>
-                                        <a href="#n">테스트 검사</a>
-                                        <span class="rank_state"><span class="new">NEW</span></span>
-                                    </li>
-                                    <li>
-                                        <a href="#n" >전자결재</a>
-                                        <span class="rank_state"><span class="new">NEW</span></span>
-                                    </li>
-                                    <li>	<a href="#n" >위기가정통합지원센터</a>
-                                        <span class="rank_state"><span class="new">NEW</span></span>
-                                    </li>
-                                </ol>
-                            </div>
-                                <div id="week" class="tab_content">
-                                    <ol>
-                                        <li>
-                                            <span class="rank">1</span>
-                                            <a href="#n" class="txt">실업급여</a>
-                                            <span class="rank_state"><span class="up">상승</span>12</span>
-                                        </li>
-                                        <li>
-                                            <span class="rank">2</span>
-                                            <a href="#n" class="txt">내일배움카드</a>
-                                            <span class="rank_state"><span class="down">하강</span>1</span>
-                                        </li>
-                                        <li>
-                                            <span class="rank">3</span>
-                                            <a href="#n" class="txt">고용보험</a>
-                                            <span class="rank_state"><span class="up">상승</span>3</span>
-                                        </li>
-                                        <li>
-                                            <span class="rank">4</span>
-                                            <a href="#n" class="txt">근로기준법</a>
-                                            <span class="rank_state"><span class="new">NEW</span></span>
-                                        </li>
-                                        <li>
-                                            <span class="rank">5</span>
-                                            <a href="#n" class="txt">요양원</a>
-                                            <span class="rank_state"><span class="new">NEW</span></span>
-                                        </li>
-                                        <li>
-                                            <span class="rank">6</span>
-                                            <a href="#n" class="txt">임금체불신고</a>
-                                            <span class="rank_state"><span class="new">NEW</span></span>
-                                        </li>
-                                        <li>
-                                            <span class="rank">7</span>
-                                            <a href="#n" class="txt">기준중위소득</a>
-                                            <span class="rank_state"><span class="same">0</span>0</span>
-                                        </li>
-                                        <li>
-                                            <span class="rank">8</span>
-                                            <a href="#n" class="txt">임금체불</a>
-                                            <span class="rank_state"><span class="new">NEW</span></span>
-                                        </li>
-                                        <li>
-                                            <span class="rank">9</span>
-                                            <a href="#n" class="txt">퇴직금</a>
-                                            <span class="rank_state"><span class="new">NEW</span></span>
-                                        </li>
-                                        <li>
-                                            <span class="rank">10</span>
-                                            <a href="#n" class="txt">임금</a>
-                                            <span class="rank_state"><span class="new">NEW</span></span>
-                                        </li>
-                                    </ol>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="my">
-                        <h2>내가찾은검색어</h2>
-                        <div class="my_content">
-                            <ul class="clearfix">
+                    <div class="cate_list">
+                        <div class="main_category appleb">Q2. 공정연관 구분</div>
+                        <div class="sub_category">
+                            <ul>
                                 <li>
-                                    <div>
-                                        <a href="#n" class="my_query">철원</a>
-                                        <a href="#n" class="my_delete">삭제</a>
-                                    </div>
+                                    <input type="checkbox">
+                                    <span>PCB 외 조립공정</span>
                                 </li>
                                 <li>
-                                    <div>
-                                        <a href="#n" class="my_query">기간</a>
-                                        <a href="#n" class="my_delete">삭제</a>
-                                    </div>
+                                    <input type="checkbox">
+                                    <span>PCB 내부 공정</span>
                                 </li>
                                 <li>
-                                    <div>
-                                        <a href="#n" class="my_query">2020년</a>
-                                        <a href="#n" class="my_delete">삭제</a>
-                                    </div>
+                                    <input type="checkbox">
+                                    <span>Drill Laser</span>
+                                </li>
+                                <li>
+                                    <input type="checkbox">
+                                    <span>적충</span>
+                                </li>
+                                <li>
+                                    <input type="checkbox">
+                                    <span>토큰</span>
+                                </li>
+                                <li>
+                                    <input type="checkbox">
+                                    <span>이미지</span>
+                                </li>
+                                <li>
+                                    <input type="checkbox">
+                                    <span>SR</span>
+                                </li>
+                                <li>
+                                    <input type="checkbox">
+                                    <span>Finish (Soft Gold, ENEPIG, OSP)</span>
+                                </li>
+                                <li>
+                                    <input type="checkbox">
+                                    <span>ABF Lami</span>
+                                </li>
+                                <li>
+                                    <input type="checkbox">
+                                    <span>후공정 (AFM/VRS/RM/ 최종수세)</span>
+                                </li>
+                                <li>
+                                    <input type="checkbox">
+                                    <span>Bump (MBM/SPP/Cioning)</span>
+                                </li>
+                                <li>
+                                    <input type="checkbox">
+                                    <span>Saving Unit</span>
+                                </li>
+                                <li>
+                                    <input type="checkbox">
+                                    <span>AOI</span>
+                                </li>
+                                <li>
+                                    <input type="checkbox">
+                                    <span>BBT</span>
+                                </li>
+                                <li>
+                                    <input type="checkbox">
+                                    <span>기타</span>
                                 </li>
                             </ul>
                         </div>
                     </div>
+                    <div class="cate_list">
+                        <div class="main_category appleb">Q3. 상세업무 구분</div>
+                        <div class="sub_category">
+                            <ul>
+                                <li>
+                                    <input type="checkbox">
+                                    <span>원가</span>
+                                </li>
+                                <li>
+                                    <input type="checkbox">
+                                    <span>Capacity</span>
+                                </li>
+                                <li>
+                                    <input type="checkbox">
+                                    <span>공정능력(Capabillity)</span>
+                                </li>
+                                <li>
+                                    <input type="checkbox">
+                                    <span>수율</span>
+                                </li>
+                                <li>
+                                    <input type="checkbox">
+                                    <span>신뢰성</span>
+                                </li>
+                                <li>
+                                    <input type="checkbox">
+                                    <span>고객사 교류회</span>
+                                </li>
+                                <li>
+                                    <input type="checkbox">
+                                    <span>고객CAR</span>
+                                </li>
+                                <li>
+                                    <input type="checkbox">
+                                    <span>원자재</span>
+                                </li>
+                                <li>
+                                    <input type="checkbox">
+                                    <span>기술/시장동향</span>
+                                </li>
+                                <li>
+                                    <input type="checkbox">
+                                    <span>공법</span>
+                                </li>
+                                <li>
+                                    <input type="checkbox">
+                                    <span>설비</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="filter_search">검색</div>
+                <div class="filter_close">닫기</div>
             </div>
+        </div>
+        </form>
+        <div class="container relative">
+            <div class="total_search">
+<%				if(searchTotalCount > 0 && !"".equals(realQuery)) {
+%>
+                <div class="sc_result"><span style="color:#ff5544;"><%=realQuery%></span>에 대한 <span><%=searchTotalCount %>건</span>의 검색 결과가 있습니다.</div>
+                <div class="result_btm">
+                    <div class="results_list">
+                        <ul>
+                            <li class="active"><a href="#">전체</a></li>
+                            <li><a href="#">Seminar</a></li>
+                            <li><a href="#">협력사(원소재, 약품, 설비) 공개자료</a></li>
+                            <li><a href="#">논문, 특허, 인터넷 강의자료</a></li>
+                            <li><a href="#">원가</a></li>
+                            <li><a href="#">Capacity</a></li>
+                            <li><a href="#">공정능력 (Capability)</a></li>
+                            <li><a href="#">수율</a></li>
+                            <li><a href="#">신뢰성</a></li>
+                        </ul>
+                    </div>
 
-        </div>
-    </div>
-    <div id="footer">
-        <div class="wrap">
-            <div class="footer_info">
-                <p class="copyright">COPYRIGHTⓒ CHEORWON-GUN. ALL RIGHTS RESERVED. </p>
+                    	<div class="result_con">
+                        <div class="type_op">
+                            <span class="list_type1 active">
+                                <a href="#type1_con"></a>
+                            </span>
+                            <span class="list_type2">
+                                <a href="#type2_con"></a>
+                            </span>
+                        </div>
+                        <div class="types_con">        
+                            <%@ include file="./result/view_list.jsp" %>
+                            <%@ include file="./result/view_grid.jsp" %>
+                        </div>
+                    </div>                 
+                </div>
+<%				} else if(searchTotalCount <= 0){
+%>
+                <div class="sc_result"><span style="color:#ff5544;"><%=realQuery%></span>에 대한 검색 결과가 없습니다.</div>
+<%				}
+%>
+                
             </div>
         </div>
-    </div>
+        <div class="footer">
+            <div class="contact inline-block">
+                <span class="inline-block">
+                    <a href="#" class="applesb">개인정보취급방침</a>
+                </span>
+                <span class="inline-block applesb">연락처 안내 : 031-8040-8000</span>
+            </div>
+            <div class="inline-block ms30">Copyright© DAEDUCK ELECTRONICS Co.,Ltd. All rights reserved.</div>
+        </div>
 </div>
 </body>
+</html>
 </html>
 <%
 	if ( proSearch != null ) proSearch.close();

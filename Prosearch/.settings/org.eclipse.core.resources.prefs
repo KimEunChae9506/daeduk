@@ -1,2 +1,8 @@
 eclipse.preferences.version=1
+encoding//src/main/webapp/daeduck/api/common/ProPaging.jsp=UTF-8
+encoding//src/main/webapp/daeduck/api/common/ProSearch.jsp=UTF-8
+encoding//src/main/webapp/daeduck/api/common/ProUtils.jsp=UTF-8
+encoding//src/main/webapp/daeduck/proten.jsp=UTF-8
+encoding//src/main/webapp/samples/css/modal.css=UTF-8
+encoding//src/main/webapp/samples/proten.jsp=UTF-8
 encoding/<project>=UTF-8

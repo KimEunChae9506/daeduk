@@ -1,4 +1,4 @@
- 
+<script src="/home/static/homepage/js/jquery.tmpl.js"></script> 
 // 상세 검색
 function goDetailSearch() {
 	var searchForm = document.prosearch; 
