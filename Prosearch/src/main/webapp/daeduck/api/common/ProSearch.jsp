@@ -205,7 +205,7 @@ public class ProSearch {
 		}  
 			 
 		
-        double took = System.currentTimeMillis();
+        //double took = System.currentTimeMillis();
         for ( int idx=0; idx < esIndex.length; idx++ ) {
             SearchRequest searchRequest = searchRequest(esIndex[idx]);
             multiSearchRequest.add(searchRequest);
@@ -214,7 +214,7 @@ public class ProSearch {
 
         boolean isSearch = msearch();
 
-        took = ( System.currentTimeMillis() - took ) / 1000.0;
+        //took = ( System.currentTimeMillis() - took ) / 1000.0;
         //제일 오래 걸린 응답
         //double took = getMaxTook();
 
@@ -223,7 +223,7 @@ public class ProSearch {
         for (int i = 0; i < esIndex.length; i++) {
             totalCnt += getTotalHitsCount(i);
         }
-        setQueryLog(query,service, took, totalCnt, addInfo);
+        //setQueryLog(query,service, took, totalCnt, addInfo);
 		
         return isSearch;
     }
