@@ -1,6 +1,6 @@
 <%@ page pageEncoding = "UTF-8" %><%!
 
-	public final static int HIGHLIGHT_SIZE = 150;
+	public final static int HIGHLIGHT_SIZE = 250;
 
 	public static final String SPECIAL_CHAR_COMMA 	= ",";
 	public static final String SPECIAL_CHAR_SLASH 	= "/";
@@ -22,9 +22,9 @@
 	public static final int DEFAULT_HIGHLIGHT_FIELD = 5;
 	public static final int DEFAULT_FILTER_QUERY 	= 6;
 	public static final int DEFAULT_INDEX_VIEW_NAME = 7;
-
-    static String ES_SERVERS = "127.0.0.1:6201";
-    static String MANAGER_SERVERS = "127.0.0.1:6501";
+	
+    static String ES_SERVERS = "192.168.8.204:6201";
+    static String MANAGER_SERVERS = "192.168.8.204:6501";
 
 	public String [] INDEX_LIST = new String [] {"doc"};
 		

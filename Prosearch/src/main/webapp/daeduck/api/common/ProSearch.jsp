@@ -4,32 +4,31 @@
 ,org.elasticsearch.client.RestHighLevelClient
 ,org.apache.http.HttpHost
 ,org.apache.lucene.search.join.ScoreMode
-,org.elasticsearch.action.search.*
+,org.elasticsearch.action.search.SearchRequest,org.elasticsearch.action.search.SearchResponse
+,org.elasticsearch.action.search.MultiSearchResponse,org.elasticsearch.action.search.MultiSearchRequest
 ,org.elasticsearch.common.unit.TimeValue
 ,org.elasticsearch.client.RequestOptions
 ,org.elasticsearch.common.xcontent.XContentBuilder
-,org.elasticsearch.index.query.*
+,org.elasticsearch.index.query.QueryBuilder,org.elasticsearch.index.query.QueryBuilders
+,org.elasticsearch.index.query.BoolQueryBuilder,org.elasticsearch.index.query.InnerHitBuilder
+,org.elasticsearch.index.query.NestedQueryBuilder,org.elasticsearch.index.query.Operator,org.elasticsearch.index.query.RangeQueryBuilder
 ,org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder
-,org.elasticsearch.search.aggregations.*
+,org.elasticsearch.search.aggregations.Aggregation,org.elasticsearch.search.aggregations.Aggregations
+,org.elasticsearch.search.aggregations.AggregationBuilder,org.elasticsearch.search.aggregations.AggregationBuilders
 ,org.elasticsearch.search.aggregations.bucket.terms.TermsAggregationBuilder
 ,org.elasticsearch.search.sort.FieldSortBuilder
 ,org.elasticsearch.search.sort.ScoreSortBuilder
 ,org.elasticsearch.search.sort.SortOrder
-,org.elasticsearch.search.*
-,org.elasticsearch.search.fetch.subphase.highlight.*
+,org.elasticsearch.search.SearchHit,org.elasticsearch.search.SearchHits
+,org.elasticsearch.search.fetch.subphase.highlight.HighlightField
 ,org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder.Order
 ,org.elasticsearch.search.fetch.subphase.FetchSourceContext
-,org.elasticsearch.common.text.*
-,org.apache.commons.logging.* 
-,com.google.gson.* 
-,java.net.*,java.io.*
+,org.elasticsearch.common.text.Text
+,java.io.BufferedReader,java.io.InputStreamReader,java.io.DataOutputStream
 ,org.elasticsearch.search.aggregations.bucket.terms.Terms.Bucket
 ,org.elasticsearch.search.aggregations.bucket.terms.Terms
-,org.elasticsearch.search.sort.GeoDistanceSortBuilder 
 ,org.elasticsearch.search.sort.ScoreSortBuilder
-,org.elasticsearch.common.unit.DistanceUnit
-,org.elasticsearch.common.geo.GeoDistance
-,java.util.*,java.io.IOException,java.net.*"%><%@ include file="./ProSearchProperties.jsp"%><%@ include file="./ProUtils.jsp"%><%@ include file="./ProPaging.jsp"%><%!
+,java.io.IOException,java.net.*"%><%@ include file="./ProSearchProperties.jsp"%><%@ include file="./ProUtils.jsp"%><%@ include file="./ProPaging.jsp"%><%!
  
 public class ProSearch {
 
@@ -245,7 +244,6 @@ public class ProSearch {
         return  ProUtils.nvl(searchMap.get(indexName + "@" + type),"");
     }
 
-
     public SearchRequest searchRequest(String indexName) {
 
 
@@ -363,7 +361,8 @@ public class ProSearch {
 
                     QueryBuilder common = getQueryString(default_string_query);
                     if (common != null) {
-                        boolQuery.must(common);
+                        //boolQuery.must(common);
+                    	boolQuery.should(common); //태그검색용 확장 검색 위해
                     }
                 }
             }
@@ -447,21 +446,6 @@ public class ProSearch {
 
             String geoQuery = getMapValue(indexName ,"GEO_SEARCH");
 
-            if(geoQuery != null && !"".equals(geoQuery) ){
-                String [] geoQuerys = geoQuery.split(SPECIAL_CHAR_SLASH);
-                QueryBuilder rangeQueryBuilder = null;
-                GeoDistanceQueryBuilder geoFilter = new GeoDistanceQueryBuilder(geoQuerys[0]);
-                geoFilter.point(Double.parseDouble(geoQuerys[1]), Double.parseDouble(geoQuerys[2]));//lat,lon
-                geoFilter.distance(geoQuerys[3]);
-
-                if(rangeQueryBuilder != null){
-                    if(boolFilterQuery == null){
-                        boolFilterQuery = new BoolQueryBuilder();
-                    }
-                    boolFilterQuery.must(geoFilter);
-                }
-            }
-
             if(boolFilterQuery != null){
                 boolQuery.filter(boolFilterQuery);
             }
@@ -499,15 +483,6 @@ public class ProSearch {
                     }
                     if ("SCORE".equals(_sort) || "RANK".equals(_sort) ) {
                         searchBuilder.sort(new ScoreSortBuilder().order(SortOrder.DESC)); // <1>
-                    }else if("GEO".equals(_sort) && arr.length>3)  {
-                        double lon = Double.parseDouble(arr[2]);
-                        double lat = Double.parseDouble(arr[3]);
-                        GeoDistanceSortBuilder geoSort = new GeoDistanceSortBuilder( arr[1],lon, lat);
-                        	      /*SortBuilders.geoDistanceSort( IndexingUtils.FIELD_LOCATION_NESTED ).unit( DistanceUnit.METERS )
-                        	            .geoDistance(GeoDistance.SLOPPY_ARC).point(lat, lon);*/
-                        geoSort.unit(DistanceUnit.METERS);
-                        geoSort.geoDistance(GeoDistance.PLANE);
-                        searchBuilder.sort(geoSort);
                     } else {
                         if ("ASC".equals(_order)) {
                             searchBuilder.sort(new FieldSortBuilder(_sort).order(SortOrder.ASC));  // <2>
@@ -1505,7 +1480,7 @@ public class ProSearch {
 
         aggregation.field(termFields);
         aggregation.size(rownum);
-
+        
         return aggregation;
 
     }

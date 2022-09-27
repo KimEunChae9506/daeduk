@@ -5,7 +5,7 @@
 	int timeout = 500;	 //ms
 
 	String search 	= ProUtils.getCheckReq(request, "query", "테스트");					//검색어
-	String service 	= ProUtils.getCheckReq(request, "service", "tot");				//auto_keyword_service
+	String service 	= ProUtils.getCheckReq(request, "service", "daeduck");				//auto_keyword_service
 	String stype 	= ProUtils.getCheckReq(request, "type", "doc");				    	//type
 	String pretty 	= ProUtils.getCheckReq(request, "pretty", "n");				    	//json 구조를 보기편하게 확인하기위한 view
 	
